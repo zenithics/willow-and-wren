@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 
 import type { Header, Media } from '@/payload-types'
 import Image from 'next/image'
+import { CartIndicator } from '@/components/CartIndicator'
 
 interface HeaderClientProps {
   data: Header
@@ -131,6 +132,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
                   </Link>
                 ))}
               </nav>
+
+              <CartIndicator />
 
               {/* Mobile hamburger */}
               <button

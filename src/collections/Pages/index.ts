@@ -26,6 +26,7 @@ import { VideoEmbed } from '../../blocks/VideoEmbed/config'
 import { MapEmbed } from '../../blocks/MapEmbed/config'
 import { Embed } from '../../blocks/Embed/config'
 import { Timeline } from '../../blocks/Timeline/config'
+import { FeaturedCollections } from '../../blocks/FeaturedCollections/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -137,6 +138,7 @@ export const Pages: CollectionConfig = {
                 Timeline,
                 Banner,
                 Code,
+                FeaturedCollections,
               ],
               required: true,
               admin: {

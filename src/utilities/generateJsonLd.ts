@@ -65,7 +65,7 @@ export async function websiteSchema() {
 }
 
 export async function productSchema(product: any) {
-  const { shop } = await getSEOGlobals()
+  const { seo, shop } = await getSEOGlobals()
   const siteUrl = getServerSideURL()
   const currency = (shop.currency || 'gbp').toUpperCase()
 
@@ -74,9 +74,7 @@ export async function productSchema(product: any) {
       ? product.images[0].url || product.images[0].sizes?.card?.url
       : null
 
-  const inStock = product.trackStock
-    ? (product.stock || 0) > 0
-    : product._status === 'published'
+  const inStock = (product.stock || 0) > 0
 
   return {
     '@context': 'https://schema.org',
@@ -96,7 +94,7 @@ export async function productSchema(product: any) {
       availability: inStock
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      url: `${siteUrl}/shop/${product.slug}`,
+      url: `${siteUrl}/shop/products/${product.slug}`,
     },
   }
 }

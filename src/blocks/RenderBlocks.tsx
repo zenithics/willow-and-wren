@@ -25,6 +25,7 @@ import { VideoEmbedBlock } from '@/blocks/VideoEmbed/Component'
 import { MapEmbedBlock } from '@/blocks/MapEmbed/Component'
 import { EmbedBlock } from '@/blocks/Embed/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
+import { FeaturedCollectionsBlock } from '@/blocks/FeaturedCollections/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -50,6 +51,7 @@ const blockComponents = {
   mapEmbed: MapEmbedBlock,
   embed: EmbedBlock,
   timeline: TimelineBlock,
+  featuredCollections: FeaturedCollectionsBlock,
 }
 
 export const RenderBlocks: React.FC<{

@@ -9,6 +9,8 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { Products } from './collections/Products'
+import { ProductCategories } from './collections/ProductCategories'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { SEOSettings } from './globals/SEOSettings'
@@ -25,6 +27,7 @@ import { NotFoundPage } from './globals/NotFoundPage'
 import { CMSBranding } from './globals/CMSBranding'
 import { PrivacySettings } from './globals/PrivacySettings'
 import { PermalinkSettings } from './globals/PermalinkSettings'
+import { ShopSettings } from './globals/ShopSettings'
 import { Popups } from './collections/Popups'
 import { ActivityLog } from './collections/ActivityLog'
 import { PageTemplates } from './collections/PageTemplates'
@@ -93,6 +96,9 @@ export default buildConfig({
     Categories,
     Media,
     PageTemplates,
+    // Shop
+    Products,
+    ProductCategories,
     // Marketing
     Popups,
     // System
@@ -113,6 +119,7 @@ export default buildConfig({
     // Global
     Header,
     Footer,
+    ShopSettings,
     CompanyDetails,
     ContactWidget,
     SiteSettings,
