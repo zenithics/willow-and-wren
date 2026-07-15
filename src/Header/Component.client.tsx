@@ -74,31 +74,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex items-center justify-between h-16">
 
-            {/* Left nav — desktop */}
-            <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation left">
-              {navLeft.map(({ href, label, newTab }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  target={newTab ? '_blank' : undefined}
-                  rel={newTab ? 'noopener noreferrer' : undefined}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    pathname === href || (href !== '/' && pathname.startsWith(href.split('?')[0]))
-                      ? 'text-primary'
-                      : 'text-foreground/80'
-                  }`}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Logo — centered */}
-            <Link
-              href="/"
-              className="absolute left-1/2 -translate-x-1/2 md:relative md:left-auto md:translate-x-0"
-              aria-label="Home"
-            >
+            {/* Logo — left */}
+            <Link href="/" aria-label="Home">
               {logo?.url ? (
                 <Image
                   src={logo.url}
@@ -115,17 +92,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
               )}
             </Link>
 
-            {/* Right nav — desktop */}
+            {/* Nav + cart — right */}
             <div className="flex items-center gap-4 md:gap-6">
-              <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation right">
-                {navRight.map(({ href, label, newTab }) => (
+              <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
+                {[...navLeft, ...navRight].map(({ href, label, newTab }) => (
                   <Link
                     key={href}
                     href={href}
                     target={newTab ? '_blank' : undefined}
                     rel={newTab ? 'noopener noreferrer' : undefined}
                     className={`text-sm font-medium transition-colors hover:text-primary ${
-                      pathname === href ? 'text-primary' : 'text-foreground/80'
+                      pathname === href || (href !== '/' && pathname.startsWith(href.split('?')[0]))
+                        ? 'text-primary'
+                        : 'text-foreground/80'
                     }`}
                   >
                     {label}
