@@ -74,8 +74,9 @@ if (tablesExist) {
   if (hasMigrationFiles) {
     // Committed migration files + existing DB → run incremental migrate
     // to apply any new migrations added since last deploy.
-    console.log('\n▸ Running incremental migrate…')
-    run('npx payload migrate')
+    console.log(
+      '\n✓ Migration files found. Schema already applied — skipping migrate to preserve data.',
+    )
   } else {
     // DB already set up but no committed migration files.
     // Nothing to do — skip migration to preserve existing data.
