@@ -236,14 +236,13 @@ html[data-theme='light'] {
 
 /* SiteAppearance runtime overrides — CSS vars injected by ThemeProvider take precedence */
 :root {
-  --primary: var(--color-primary, oklch(54% 0.215 261deg));
-  --secondary: var(--color-secondary, oklch(96% 0.008 261deg));
-  --accent: var(--color-accent, oklch(62% 0.215 261deg));
-  --background: var(--color-bg, oklch(100% 0 0));
-  --foreground: var(--color-text, oklch(17% 0.028 264deg));
+  --primary: var(--color-primary, oklch(74.3% 0.033 127.3deg)); /* Sage */
+  --secondary: var(--color-secondary, oklch(86.6% 0.015 80.7deg)); /* Stone */
+  --accent: var(--color-accent, oklch(74.4% 0.088 84.6deg)); /* Gold */
+  --background: var(--color-bg, oklch(96.8% 0.009 84.6deg)); /* Ivory */
+  --foreground: var(--color-text, oklch(40.1% 0.007 95.3deg)); /* Charcoal */
   --brand-header-bg: var(--color-header-bg, oklch(100% 0 0));
-  --brand-footer-bg: var(--color-footer-bg, oklch(17% 0.028 264deg));
-  /* Typography overrides from CMS */
+  --brand-footer-bg: var(--color-footer-bg, oklch(40.1% 0.007 95.3deg));
   --font-sans: var(--font-body, var(--font-dm-sans), system-ui, sans-serif);
   --font-serif: var(--font-heading, var(--font-cormorant), Georgia, serif);
 }
