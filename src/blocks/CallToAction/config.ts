@@ -14,6 +14,29 @@ export const CallToAction: Block = {
   interfaceName: 'CallToActionBlock',
   fields: [
     {
+      name: 'style',
+      type: 'select',
+      defaultValue: 'card',
+      options: [
+        { label: 'Card (default)', value: 'card' },
+        { label: 'Full-width Band', value: 'band' },
+      ],
+    },
+    {
+      name: 'buttonBackground',
+      type: 'select',
+      defaultValue: 'sage',
+      label: 'Button Background',
+      admin: {
+        condition: (_, siblingData) => siblingData?.style === 'band',
+        description: 'Background colour of the CTA button in the full-width band style. Text is always Ivory.',
+      },
+      options: [
+        { label: 'Sage', value: 'sage' },
+        { label: 'Charcoal', value: 'charcoal' },
+      ],
+    },
+    {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({

@@ -16,6 +16,15 @@ export const Testimonials: Block = {
       defaultValue: 'What Our Clients Say',
     },
     {
+      name: 'layout',
+      type: 'select',
+      defaultValue: 'grid',
+      options: [
+        { label: 'Grid (cards)', value: 'grid' },
+        { label: 'Editorial (large stacked quotes)', value: 'stacked' },
+      ],
+    },
+    {
       name: 'testimonials',
       type: 'array',
       minRows: 1,
@@ -40,6 +49,14 @@ export const Testimonials: Block = {
           name: 'role',
           type: 'text',
           label: 'Role / Company',
+        },
+        {
+          name: 'eventDate',
+          type: 'text',
+          label: 'Event / Wedding Date',
+          admin: {
+            description: 'e.g. "Married 14 June 2025" — shown under the name in the editorial layout.',
+          },
         },
         {
           name: 'image',

@@ -31,5 +31,14 @@ export const HomeHero: Block = {
         { label: 'Pink gradient', value: 'pink' },
       ],
     },
+    {
+      name: 'botanicalOverlay',
+      type: 'checkbox',
+      defaultValue: false,
+      label: 'Botanical Overlay',
+      admin: {
+        description: 'Adds decorative botanical line-art motifs to the corners of the hero.',
+      },
+    },
   ],
 }

@@ -27,6 +27,10 @@ import { MapEmbed } from '../../blocks/MapEmbed/config'
 import { Embed } from '../../blocks/Embed/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { FeaturedCollections } from '../../blocks/FeaturedCollections/config'
+import { CollectionsShowcase } from '../../blocks/CollectionsShowcase/config'
+import { CategoryStrip } from '../../blocks/CategoryStrip/config'
+import { BrandStory } from '../../blocks/BrandStory/config'
+import { FeaturedProducts } from '../../blocks/FeaturedProducts/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -139,6 +143,10 @@ export const Pages: CollectionConfig = {
                 Banner,
                 Code,
                 FeaturedCollections,
+                CollectionsShowcase,
+                CategoryStrip,
+                BrandStory,
+                FeaturedProducts,
               ],
               required: true,
               admin: {

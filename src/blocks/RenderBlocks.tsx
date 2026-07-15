@@ -26,6 +26,10 @@ import { MapEmbedBlock } from '@/blocks/MapEmbed/Component'
 import { EmbedBlock } from '@/blocks/Embed/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { FeaturedCollectionsBlock } from '@/blocks/FeaturedCollections/Component'
+import { CollectionsShowcaseBlock } from '@/blocks/CollectionsShowcase/Component'
+import { CategoryStripBlock } from '@/blocks/CategoryStrip/Component'
+import { BrandStoryBlock } from '@/blocks/BrandStory/Component'
+import { FeaturedProductsBlock } from '@/blocks/FeaturedProducts/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -52,6 +56,10 @@ const blockComponents = {
   embed: EmbedBlock,
   timeline: TimelineBlock,
   featuredCollections: FeaturedCollectionsBlock,
+  collectionsShowcase: CollectionsShowcaseBlock,
+  categoryStrip: CategoryStripBlock,
+  brandStory: BrandStoryBlock,
+  featuredProducts: FeaturedProductsBlock,
 }
 
 export const RenderBlocks: React.FC<{

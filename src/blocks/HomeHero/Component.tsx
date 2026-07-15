@@ -31,6 +31,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
   backgroundImage,
   style = 'split',
   theme = 'dark',
+  botanicalOverlay,
 }) => {
   const t = THEME_CLASSES[theme as keyof typeof THEME_CLASSES] || THEME_CLASSES.dark
   const hasImage = backgroundImage && typeof backgroundImage === 'object'
@@ -42,6 +43,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
         style={hasImage ? { backgroundImage: `url(${(backgroundImage as any).url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
       >
         {hasImage && <div className="absolute inset-0 bg-black/50" />}
+        {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-3xl mx-auto">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 ${t.badge}`}>
@@ -63,6 +65,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
         style={hasImage ? { backgroundImage: `url(${(backgroundImage as any).url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
       >
         {hasImage && <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />}
+        {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-2xl">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${t.badge}`}>
@@ -79,9 +82,10 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   /* Default: split layout */
   return (
-    <section className={`min-h-[85vh] grid grid-cols-1 lg:grid-cols-2 ${t.wrapper}`}>
+    <section className={`relative min-h-[85vh] grid grid-cols-1 lg:grid-cols-2 ${t.wrapper}`}>
+      {botanicalOverlay && <BotanicalOverlay />}
       {/* Text side */}
-      <div className="flex flex-col justify-center px-8 md:px-14 py-16 lg:py-24 order-2 lg:order-1">
+      <div className="relative z-10 flex flex-col justify-center px-8 md:px-14 py-16 lg:py-24 order-2 lg:order-1">
         {badge && (
           <span className={`inline-flex w-fit px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 ${t.badge}`}>
             {badge}
@@ -111,6 +115,34 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
         )}
       </div>
     </section>
+  )
+}
+
+function BotanicalOverlay() {
+  const leaf = (
+    <path d="M0 40 C 10 10, 30 0, 40 0 C 38 14, 30 24, 20 30 C 30 28, 38 32, 40 40 C 26 42, 10 42, 0 40 Z" />
+  )
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden" aria-hidden="true">
+      <svg
+        className="absolute -top-2 -left-2 w-24 h-24 md:w-32 md:h-32 text-current opacity-25"
+        viewBox="0 0 40 40"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={0.75}
+      >
+        {leaf}
+      </svg>
+      <svg
+        className="absolute -bottom-2 -right-2 w-24 h-24 md:w-32 md:h-32 text-current opacity-25 rotate-180"
+        viewBox="0 0 40 40"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={0.75}
+      >
+        {leaf}
+      </svg>
+    </div>
   )
 }
 
