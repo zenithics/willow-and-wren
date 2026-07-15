@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
-import { Inter } from 'next/font/google'
+import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -18,7 +18,11 @@ import { CookieConsentLoader } from '@/components/CookieConsent/CookieConsentLoa
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { AccessibilityWidget } from '@/components/AccessibilityWidget'
 import { ContactWidgetLoader } from '@/components/ContactWidget/ContactWidgetLoader'
-import { CustomHeadScripts, CustomBodyScripts, CustomBodyStartScripts } from '@/components/CustomScripts'
+import {
+  CustomHeadScripts,
+  CustomBodyScripts,
+  CustomBodyStartScripts,
+} from '@/components/CustomScripts'
 import { NewsletterPopupLoader } from '@/components/NewsletterPopup/NewsletterPopupLoader'
 import { AnnouncementBarLoader } from '@/components/AnnouncementBar/AnnouncementBarLoader'
 import { PopupLoader } from '@/components/PopupRenderer/PopupLoader'
@@ -28,11 +32,15 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-inter',
-  display: 'swap',
+  variable: '--font-dm-sans',
+})
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-cormorant',
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -51,10 +59,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html
-      className={cn(
-        GeistMono.variable,
-        inter.variable,
-      )}
+      className={`${dmSans.variable} ${cormorant.variable} ${GeistMono.variable}`}
       lang={locale.language}
       suppressHydrationWarning
     >
@@ -64,9 +69,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Analytics />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly site summary" />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title="LLM-friendly site summary"
+        />
         <link rel="alternate" type="application/rss+xml" title="Blog RSS Feed" href="/feed.xml" />
-        <link rel="alternate" type="application/feed+json" title="Blog JSON Feed" href="/feed.json" />
+        <link
+          rel="alternate"
+          type="application/feed+json"
+          title="Blog JSON Feed"
+          href="/feed.json"
+        />
         <CustomHeadScripts />
         {orgSchema && (
           <script

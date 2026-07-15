@@ -44,8 +44,8 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-serif: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
 }
 
 @layer utilities {
@@ -87,49 +87,49 @@
   }
 }
 
-/* Zenithics CMS Template — neutral professional blue */
+/* Willow & wREN CMS Template */
 :root {
-  --background: oklch(100% 0 0);                  /* white */
-  --foreground: oklch(17% 0.028 264deg);           /* slate-900 #0F172A */
-  --card: oklch(100% 0 0);
-  --card-foreground: oklch(17% 0.028 264deg);
+  /* ── Willow & Wren brand palette ── */
+  --background: oklch(96.8% 0.009 84.6deg); /* Warm Ivory #F7F4EE */
+  --foreground: oklch(40.1% 0.007 95.3deg); /* Charcoal #494844 */
+  --card: oklch(100% 0 0); /* white */
+  --card-foreground: oklch(40.1% 0.007 95.3deg); /* Charcoal */
   --popover: oklch(100% 0 0);
-  --popover-foreground: oklch(17% 0.028 264deg);
-  --primary: oklch(54% 0.215 261deg);              /* blue-600 #2563EB */
-  --primary-foreground: oklch(100% 0 0);
-  --secondary: oklch(96% 0.008 261deg);            /* slate-100 #F1F5F9 */
-  --secondary-foreground: oklch(17% 0.028 264deg);
-  --muted: oklch(97% 0.006 261deg);               /* slate-50 */
-  --muted-foreground: oklch(53% 0.028 260deg);     /* slate-500 #64748B */
-  --accent: oklch(62% 0.215 261deg);              /* blue-500 #3B82F6 */
+  --popover-foreground: oklch(40.1% 0.007 95.3deg);
+  --primary: oklch(74.3% 0.033 127.3deg); /* Soft Sage #A6B09A */
+  --primary-foreground: oklch(100% 0 0); /* white on sage */
+  --secondary: oklch(86.6% 0.015 80.7deg); /* Stone #D8D2C8 */
+  --secondary-foreground: oklch(40.1% 0.007 95.3deg);
+  --muted: oklch(92% 0.012 84deg); /* lighter stone */
+  --muted-foreground: oklch(55% 0.01 95deg); /* mid charcoal */
+  --accent: oklch(74.4% 0.088 84.6deg); /* Antique Gold #C6A86A */
   --accent-foreground: oklch(100% 0 0);
   --destructive: oklch(57.7% 0.245 27.325deg);
   --destructive-foreground: oklch(100% 0 0);
-  --border: oklch(92% 0.012 261deg);              /* slate-200 #E2E8F0 */
-  --input: oklch(92% 0.012 261deg);
-  --ring: oklch(54% 0.215 261deg);                /* blue-600 */
-  --chart-1: oklch(54% 0.215 261deg);
-  --chart-2: oklch(62% 0.215 261deg);
-  --chart-3: oklch(70% 0.185 261deg);
-  --chart-4: oklch(44% 0.034 264deg);
-  --chart-5: oklch(96% 0.008 261deg);
-  --radius: 0.5rem;
-  --sidebar: oklch(97% 0.006 261deg);
-  --sidebar-foreground: oklch(17% 0.028 264deg);
-  --sidebar-primary: oklch(54% 0.215 261deg);
+  --border: oklch(89% 0.012 84deg); /* subtle stone border */
+  --input: oklch(89% 0.012 84deg);
+  --ring: oklch(74.3% 0.033 127.3deg); /* Sage ring */
+  --chart-1: oklch(74.3% 0.033 127.3deg); /* Sage */
+  --chart-2: oklch(74.4% 0.088 84.6deg); /* Gold */
+  --chart-3: oklch(86.6% 0.015 80.7deg); /* Stone */
+  --chart-4: oklch(40.1% 0.007 95.3deg); /* Charcoal */
+  --chart-5: oklch(96.8% 0.009 84.6deg); /* Ivory */
+  --radius: 0.25rem;
+  --sidebar: oklch(96.8% 0.009 84.6deg);
+  --sidebar-foreground: oklch(40.1% 0.007 95.3deg);
+  --sidebar-primary: oklch(74.3% 0.033 127.3deg);
   --sidebar-primary-foreground: oklch(100% 0 0);
-  --sidebar-accent: oklch(96% 0.008 261deg);
-  --sidebar-accent-foreground: oklch(17% 0.028 264deg);
-  --sidebar-border: oklch(92% 0.012 261deg);
-  --sidebar-ring: oklch(54% 0.215 261deg);
-  --success: oklch(78% 0.08 200deg);
+  --sidebar-accent: oklch(86.6% 0.015 80.7deg);
+  --sidebar-accent-foreground: oklch(40.1% 0.007 95.3deg);
+  --sidebar-border: oklch(89% 0.012 84deg);
+  --sidebar-ring: oklch(74.3% 0.033 127.3deg);
+  --success: oklch(78% 0.08 150deg);
   --warning: oklch(89% 0.1 75deg);
   --error: oklch(55% 0.2 25deg);
-  /* Brand tokens — values overridden per-client via SiteAppearance global */
-  --brand-deep-plum: oklch(17% 0.028 264deg);     /* slate-900 */
-  --brand-blush: oklch(96% 0.008 261deg);          /* slate-100 */
-  --border-subtle: oklch(92% 0.012 261deg);      /* slate-200 */
-  --accent: oklch(62% 0.215 261deg);      /* blue-500 */
+  /* Brand tokens */
+  --brand-deep-plum: oklch(40.1% 0.007 95.3deg); /* Charcoal (replaces plum) */
+  --brand-blush: oklch(96.8% 0.009 84.6deg); /* Ivory (replaces blush) */
+  --border-subtle: oklch(89% 0.012 84deg);
 }
 
 [data-theme='dark'] {
@@ -139,7 +139,7 @@
   --card-foreground: oklch(96% 0.006 261deg);
   --popover: oklch(13% 0.024 264deg);
   --popover-foreground: oklch(96% 0.006 261deg);
-  --primary: oklch(65% 0.215 261deg);             /* blue-400 */
+  --primary: oklch(65% 0.215 261deg); /* blue-400 */
   --primary-foreground: oklch(13% 0.024 264deg);
   --secondary: oklch(21% 0.024 264deg);
   --secondary-foreground: oklch(90% 0.01 261deg);
@@ -244,14 +244,33 @@ html[data-theme='light'] {
   --brand-header-bg: var(--color-header-bg, oklch(100% 0 0));
   --brand-footer-bg: var(--color-footer-bg, oklch(17% 0.028 264deg));
   /* Typography overrides from CMS */
-  --font-sans: var(--font-body, var(--font-inter), system-ui, sans-serif);
-  --font-serif: var(--font-heading, var(--font-inter), system-ui, sans-serif);
+  --font-sans: var(--font-body, var(--font-dm-sans), system-ui, sans-serif);
+  --font-serif: var(--font-heading, var(--font-cormorant), Georgia, serif);
 }
 
 /* Heading element sizing from CMS */
-h1 { font-size: var(--size-h1, 3.5rem); font-weight: var(--weight-heading, 700); }
-h2 { font-size: var(--size-h2, 2.5rem); font-weight: var(--weight-heading, 700); }
-h3 { font-size: var(--size-h3, 2rem); font-weight: var(--weight-heading, 700); }
-h4 { font-size: var(--size-h4, 1.5rem); font-weight: var(--weight-heading, 700); }
-h5 { font-size: var(--size-h5, 1.25rem); font-weight: var(--weight-heading, 700); }
-body { font-size: var(--size-body, 1rem); font-weight: var(--weight-body, 400); }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+}
+h1 {
+  font-size: var(--size-h1, 3rem);
+  font-weight: var(--weight-heading, 300);
+  letter-spacing: 0.02em;
+}
+h2 {
+  font-size: var(--size-h2, 2.25rem);
+  font-weight: var(--weight-heading, 300);
+}
+h3 {
+  font-size: var(--size-h3, 1.75rem);
+  font-weight: var(--weight-heading, 400);
+}
+body {
+  font-size: var(--size-body, 1rem);
+  font-weight: var(--weight-body, 400);
+}
