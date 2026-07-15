@@ -8,7 +8,7 @@
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap && cross-env NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
-    "deploy": "node scripts/setup-db.mjs && pnpm build",
+    "deploy": "cross-env NODE_OPTIONS=--no-deprecation payload migrate && pnpm build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types && payload generate:importmap",
@@ -22,7 +22,7 @@
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
-    "seed": "node --env-file=.env scripts/seed-products.mjs"
+    "seed": "node --env-file=.env scripts/seed-shop.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.106.0",
