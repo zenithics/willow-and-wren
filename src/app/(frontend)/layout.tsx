@@ -49,12 +49,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const payloadConfig = (await import('@payload-config')).default
   const payload = await getPayload({ config: payloadConfig })
   const seoSettings = (await payload.findGlobal({ slug: 'seo-settings' }).catch(() => null)) as any
+  const siteAppearance = (await payload
+    .findGlobal({ slug: 'site-appearance', depth: 1 })
+    .catch(() => null)) as any
 
   const [orgSchema, webSchema, locale] = await Promise.all([
     seoSettings?.schemaOrganization !== false ? organizationSchema() : null,
     seoSettings?.schemaWebsite !== false ? websiteSchema() : null,
     getLocaleSettings(),
   ])
+
+  const favicon =
+    siteAppearance?.favicon && typeof siteAppearance.favicon === 'object'
+      ? siteAppearance.favicon
+      : null
   // Analytics is rendered inside <head> via the component
 
   return (
@@ -67,8 +75,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ThemeProvider />
         <InitTheme />
         <Analytics />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        {favicon?.url ? (
+          <link
+            href={favicon.url}
+            rel="icon"
+            type={favicon.mimeType || undefined}
+          />
+        ) : (
+          <>
+            <link href="/favicon.ico" rel="icon" sizes="32x32" />
+            <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+          </>
+        )}
         <link
           rel="alternate"
           type="text/plain"

@@ -55,13 +55,13 @@ export const SiteAppearance: GlobalConfig = {
         {
           label: 'Colours',
           fields: [
-            colourField('primaryColour', 'Primary Brand Colour', '#E8177A', 'Hex value e.g. #FF69B4 — used for buttons, links, accents'),
-            colourField('secondaryColour', 'Secondary Colour', '#2D1B3D'),
-            colourField('accentColour', 'Accent Colour', '#B76E79'),
-            colourField('backgroundColour', 'Background Colour', '#FFFFFF'),
-            colourField('textColour', 'Text Colour', '#1A1A1A'),
-            colourField('headerBgColour', 'Header Background', '#f8fafc'),
-            colourField('footerBgColour', 'Footer Background', '#2D1B3D'),
+            colourField('primaryColour', 'Primary Brand Colour', '#A6B09A', '...'),
+colourField('secondaryColour', 'Secondary Colour', '#D8D2C8'),
+colourField('accentColour', 'Accent Colour', '#C6A86A'),
+colourField('backgroundColour', 'Background Colour', '#F7F4EE'),
+colourField('textColour', 'Text Colour', '#494844'),
+colourField('headerBgColour', 'Header Background', '#FFFFFF'),
+colourField('footerBgColour', 'Footer Background', '#494844'),
           ],
         },
         {

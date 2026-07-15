@@ -27,7 +27,7 @@ export const Media: CollectionConfig = {
   access: {
     create: isAdminOrEditor,
     delete: isAdmin,
-    read: authenticated,
+    read: () => true, // was: authenticated
     update: isAdminOrEditor,
   },
   fields: [
