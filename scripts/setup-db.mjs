@@ -38,7 +38,7 @@ async function dbHasTables() {
       `SELECT EXISTS (
          SELECT 1 FROM information_schema.tables
          WHERE table_name = 'payload_migrations'
-       ) AS "exists"`
+       ) AS "exists"`,
     )
 
     if (!migTable.rows[0].exists) {
@@ -75,7 +75,7 @@ if (tablesExist) {
     // Committed migration files + existing DB → run incremental migrate
     // to apply any new migrations added since last deploy.
     console.log('\n▸ Running incremental migrate…')
-    run('echo y | npx payload migrate')
+    run('npx payload migrate')
   } else {
     // DB already set up but no committed migration files.
     // Nothing to do — skip migration to preserve existing data.
