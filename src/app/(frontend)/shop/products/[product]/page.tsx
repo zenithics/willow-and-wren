@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -85,7 +86,10 @@ export default async function ProductPage({ params: paramsPromise }: Args) {
               <div className="grid grid-cols-4 gap-4">
                 {images.slice(1).map((image) =>
                   typeof image === 'object' ? (
-                    <div key={image.id} className="aspect-square bg-muted rounded-md overflow-hidden">
+                    <div
+                      key={image.id}
+                      className="aspect-square bg-muted rounded-md overflow-hidden"
+                    >
                       <Media resource={image} imgClassName="w-full h-full object-cover" />
                     </div>
                   ) : null,
