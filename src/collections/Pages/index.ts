@@ -227,7 +227,7 @@ export const Pages: CollectionConfig = {
               label: 'Focus Keyword',
               admin: {
                 description: 'Primary keyword for this page. Used for internal reference only.',
-                placeholder: 'press on nails UK',
+                placeholder: 'bespoke wedding stationery UK',
               },
             },
           ],

@@ -1,25 +1,29 @@
 import React from 'react'
 import Link from 'next/link'
 import type { HomeHeroBlock as HomeHeroBlockProps } from '@/payload-types'
+import { ImagePlaceholder, Sprig } from '@/components/Botanical'
 
 const THEME_CLASSES = {
   dark: {
     wrapper: 'bg-[var(--brand-deep-plum)] text-white',
-    badge: 'bg-white/10 text-pink-300 border border-white/20',
+    badge: 'bg-white/10 text-[var(--accent)] border border-white/20',
     headline: 'text-white',
     sub: 'text-white/65',
+    links: 'dark' as const,
   },
   light: {
-    wrapper: 'bg-[#f8fafc] text-foreground',
-    badge: 'bg-[var(--brand-blush)] text-primary border border-primary/20',
+    wrapper: 'bg-background text-foreground',
+    badge: 'bg-(--brand-blush) text-primary border border-primary/20',
     headline: 'text-foreground',
     sub: 'text-muted-foreground',
+    links: 'light' as const,
   },
   pink: {
-    wrapper: 'bg-gradient-to-br from-primary via-pink-500 to-rose-400 text-white',
-    badge: 'bg-white/20 text-white border border-white/30',
-    headline: 'text-white',
-    sub: 'text-white/80',
+    wrapper: 'bg-gradient-to-br from-(--brand-blush) via-secondary to-muted text-foreground',
+    badge: 'bg-white/70 text-primary border border-primary/20',
+    headline: 'text-foreground',
+    sub: 'text-muted-foreground',
+    links: 'light' as const,
   },
 }
 
@@ -30,10 +34,10 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
   links,
   backgroundImage,
   style = 'split',
-  theme = 'dark',
+  theme = 'light',
   botanicalOverlay,
 }) => {
-  const t = THEME_CLASSES[theme as keyof typeof THEME_CLASSES] || THEME_CLASSES.dark
+  const t = THEME_CLASSES[theme as keyof typeof THEME_CLASSES] || THEME_CLASSES.light
   const hasImage = backgroundImage && typeof backgroundImage === 'object'
 
   if (style === 'centred') {
@@ -46,13 +50,21 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
         {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-3xl mx-auto">
           {badge && (
-            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 ${t.badge}`}>
+            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 ${
+              hasImage ? 'bg-white/20 text-white border border-white/30' : t.badge
+            }`}>
               {badge}
             </span>
           )}
-          <h1 className={`font-serif text-5xl md:text-7xl leading-tight mb-5 ${t.headline}`}>{headline}</h1>
-          {subheadline && <p className={`text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed ${t.sub}`}>{subheadline}</p>}
-          <HeroLinks links={links} />
+          <h1 className={`font-serif text-5xl md:text-7xl leading-tight mb-5 ${hasImage ? 'text-white' : t.headline}`}>
+            {headline}
+          </h1>
+          {subheadline && (
+            <p className={`font-serif text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed ${hasImage ? 'text-white/80' : t.sub}`}>
+              {subheadline}
+            </p>
+          )}
+          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} />
         </div>
       </section>
     )
@@ -68,13 +80,21 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
         {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-2xl">
           {badge && (
-            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${t.badge}`}>
+            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${
+              hasImage ? 'bg-white/20 text-white border border-white/30' : t.badge
+            }`}>
               {badge}
             </span>
           )}
-          <h1 className="font-serif text-5xl md:text-6xl text-white leading-tight mb-4">{headline}</h1>
-          {subheadline && <p className="text-white/75 text-base mb-7 leading-relaxed max-w-lg">{subheadline}</p>}
-          <HeroLinks links={links} />
+          <h1 className={`font-serif text-5xl md:text-6xl leading-tight mb-4 ${hasImage ? 'text-white' : t.headline}`}>
+            {headline}
+          </h1>
+          {subheadline && (
+            <p className={`font-serif text-base mb-7 leading-relaxed max-w-lg ${hasImage ? 'text-white/75' : t.sub}`}>
+              {subheadline}
+            </p>
+          )}
+          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} />
         </div>
       </section>
     )
@@ -95,15 +115,15 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
           {headline}
         </h1>
         {subheadline && (
-          <p className={`text-base md:text-lg mb-8 leading-relaxed max-w-md ${t.sub}`}>
+          <p className={`font-serif text-base md:text-lg mb-8 leading-relaxed max-w-md ${t.sub}`}>
             {subheadline}
           </p>
         )}
-        <HeroLinks links={links} />
+        <HeroLinks links={links} variant={t.links} />
       </div>
 
       {/* Image side */}
-      <div className="relative min-h-[50vh] lg:min-h-0 order-1 lg:order-2 overflow-hidden bg-gradient-to-br from-pink-200 via-rose-100 to-[var(--brand-blush)]">
+      <div className="relative min-h-[50vh] lg:min-h-0 order-1 lg:order-2 overflow-hidden bg-muted">
         {hasImage ? (
           <img
             src={(backgroundImage as any).url}
@@ -111,7 +131,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
             className="absolute inset-0 w-full h-full object-cover"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-[120px]">💅</div>
+          <ImagePlaceholder />
         )}
       </div>
     </section>
@@ -119,35 +139,27 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 }
 
 function BotanicalOverlay() {
-  const leaf = (
-    <path d="M0 40 C 10 10, 30 0, 40 0 C 38 14, 30 24, 20 30 C 30 28, 38 32, 40 40 C 26 42, 10 42, 0 40 Z" />
-  )
   return (
     <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden" aria-hidden="true">
-      <svg
-        className="absolute -top-2 -left-2 w-24 h-24 md:w-32 md:h-32 text-current opacity-25"
-        viewBox="0 0 40 40"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={0.75}
-      >
-        {leaf}
-      </svg>
-      <svg
-        className="absolute -bottom-2 -right-2 w-24 h-24 md:w-32 md:h-32 text-current opacity-25 rotate-180"
-        viewBox="0 0 40 40"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={0.75}
-      >
-        {leaf}
-      </svg>
+      <Sprig className="absolute top-4 left-4 w-10 h-16 md:w-14 md:h-24 text-current opacity-30 -rotate-12" />
+      <Sprig className="absolute bottom-4 right-4 w-10 h-16 md:w-14 md:h-24 text-current opacity-30 rotate-[168deg]" />
     </div>
   )
 }
 
-function HeroLinks({ links }: { links: HomeHeroBlockProps['links'] }) {
+function HeroLinks({
+  links,
+  variant = 'dark',
+}: {
+  links: HomeHeroBlockProps['links']
+  variant?: 'dark' | 'light'
+}) {
   if (!links || links.length === 0) return null
+  const secondaryClass =
+    variant === 'light'
+      ? 'border border-foreground/25 text-foreground hover:bg-foreground/5'
+      : 'border border-white/30 text-white hover:bg-white/10'
+
   return (
     <div className="flex flex-wrap gap-3">
       {links.map(({ link }, i) => {
@@ -162,8 +174,8 @@ function HeroLinks({ links }: { links: HomeHeroBlockProps['links'] }) {
             {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             className={`inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-bold transition-all ${
               isPrimary
-                ? 'bg-primary text-white hover:bg-primary/90 shadow-[0_4px_16px_rgba(232,23,122,0.35)]'
-                : 'border border-white/30 text-white hover:bg-white/10'
+                ? 'bg-primary text-(--brand-blush) hover:bg-primary/90 shadow-[0_4px_16px_rgba(166,176,154,0.45)]'
+                : secondaryClass
             }`}
           >
             {link.label}

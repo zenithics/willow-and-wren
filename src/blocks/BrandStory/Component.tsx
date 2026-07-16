@@ -5,6 +5,7 @@ import type { BrandStoryBlock as BrandStoryBlockProps } from '@/payload-types'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
+import { ImagePlaceholder, Sprig } from '@/components/Botanical'
 
 export const BrandStoryBlock: React.FC<BrandStoryBlockProps> = ({
   heading,
@@ -20,22 +21,25 @@ export const BrandStoryBlock: React.FC<BrandStoryBlockProps> = ({
     <section className="py-20 md:py-28 bg-background">
       <div className="container grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         <div
-          className={`relative aspect-[4/5] overflow-hidden rounded-sm bg-muted ${
+          className={`relative aspect-4/5 overflow-hidden rounded-sm ${
             isImageRight ? 'lg:order-2' : 'lg:order-1'
           }`}
         >
-          {image && typeof image === 'object' && (
+          {image && typeof image === 'object' ? (
             <Media resource={image} imgClassName="w-full h-full object-cover" />
+          ) : (
+            <ImagePlaceholder />
           )}
         </div>
 
         <div className={isImageRight ? 'lg:order-1' : 'lg:order-2'}>
+          <Sprig className="w-6 h-10 text-primary/50 mb-5" />
           {heading && (
             <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-6">{heading}</h2>
           )}
           {content && (
             <RichText
-              className="mb-8 text-muted-foreground leading-relaxed max-w-lg"
+              className="mb-8 font-serif text-muted-foreground leading-relaxed max-w-lg"
               data={content}
               enableGutter={false}
             />

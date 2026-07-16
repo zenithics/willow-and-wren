@@ -6,6 +6,7 @@ import configPromise from '@payload-config'
 import type { CategoryStripBlock as CategoryStripBlockProps } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { ImagePlaceholder, LeafDivider } from '@/components/Botanical'
 
 export const CategoryStripBlock: React.FC<CategoryStripBlockProps> = async ({
   heading,
@@ -44,9 +45,10 @@ export const CategoryStripBlock: React.FC<CategoryStripBlockProps> = async ({
     <section className="py-16 md:py-20 bg-background">
       <div className="container">
         {heading && (
-          <h2 className="text-2xl md:text-3xl font-serif tracking-tight text-center mb-12">
-            {heading}
-          </h2>
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-serif tracking-tight mb-4">{heading}</h2>
+            <LeafDivider />
+          </div>
         )}
 
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-10 md:gap-x-12">
@@ -56,19 +58,17 @@ export const CategoryStripBlock: React.FC<CategoryStripBlockProps> = async ({
               href={`/shop/${category.slug}`}
               className="group flex flex-col items-center gap-3 w-24 md:w-28 text-center"
             >
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-muted border border-border transition-colors group-hover:border-primary">
+              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border border-border transition-colors group-hover:border-primary">
                 {category.image && typeof category.image === 'object' ? (
                   <Media
                     resource={category.image}
                     imgClassName="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-2xl text-primary">
-                    ❀
-                  </div>
+                  <ImagePlaceholder rounded />
                 )}
               </div>
-              <span className="text-sm font-medium tracking-wide transition-colors group-hover:text-primary">
+              <span className="text-sm font-medium tracking-wide font-serif transition-colors group-hover:text-primary">
                 {category.title}
               </span>
             </Link>

@@ -6,6 +6,7 @@ import configPromise from '@payload-config'
 import type { CollectionsShowcaseBlock as CollectionsShowcaseBlockProps } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { ImagePlaceholder, LeafDivider } from '@/components/Botanical'
 
 export const CollectionsShowcaseBlock: React.FC<CollectionsShowcaseBlockProps> = async ({
   heading,
@@ -41,9 +42,11 @@ export const CollectionsShowcaseBlock: React.FC<CollectionsShowcaseBlockProps> =
             {heading && (
               <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-5">{heading}</h2>
             )}
-            <BotanicalDivider />
+            <LeafDivider />
             {subheading && (
-              <p className="text-muted-foreground text-lg mt-5 leading-relaxed">{subheading}</p>
+              <p className="font-serif text-muted-foreground text-lg mt-5 leading-relaxed">
+                {subheading}
+              </p>
             )}
           </div>
         )}
@@ -59,7 +62,7 @@ export const CollectionsShowcaseBlock: React.FC<CollectionsShowcaseBlockProps> =
                 className="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
               >
                 <div
-                  className={`relative aspect-[4/3] lg:aspect-square overflow-hidden rounded-sm bg-muted ${
+                  className={`relative aspect-4/3 lg:aspect-square overflow-hidden rounded-sm ${
                     isImageRight ? 'lg:order-2' : 'lg:order-1'
                   }`}
                 >
@@ -68,7 +71,9 @@ export const CollectionsShowcaseBlock: React.FC<CollectionsShowcaseBlockProps> =
                       resource={category.image}
                       imgClassName="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-                  ) : null}
+                  ) : (
+                    <ImagePlaceholder />
+                  )}
                 </div>
 
                 <div
@@ -83,7 +88,7 @@ export const CollectionsShowcaseBlock: React.FC<CollectionsShowcaseBlockProps> =
                     {category.title}
                   </h3>
                   {category.description && (
-                    <p className="text-muted-foreground leading-relaxed max-w-md mb-6">
+                    <p className="font-serif text-muted-foreground leading-relaxed max-w-md mb-6">
                       {category.description}
                     </p>
                   )}
@@ -107,22 +112,5 @@ export const CollectionsShowcaseBlock: React.FC<CollectionsShowcaseBlockProps> =
         </div>
       </div>
     </section>
-  )
-}
-
-function BotanicalDivider() {
-  return (
-    <svg
-      className="mx-auto w-32 h-6 text-primary/60"
-      viewBox="0 0 120 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1}
-      aria-hidden="true"
-    >
-      <path d="M0 12 H45" />
-      <path d="M75 12 H120" />
-      <path d="M60 12 C 60 4, 68 2, 72 6 C 68 8, 64 10, 60 12 C 56 10, 52 8, 48 6 C 52 2, 60 4, 60 12 Z" />
-    </svg>
   )
 }

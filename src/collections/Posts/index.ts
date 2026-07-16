@@ -201,7 +201,7 @@ export const Posts: CollectionConfig = {
               name: 'focusKeyword',
               type: 'text',
               label: 'Focus Keyword',
-              admin: { placeholder: 'best press on nails' },
+              admin: { placeholder: 'bespoke wedding invitations' },
             },
           ],
         },

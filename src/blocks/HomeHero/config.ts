@@ -6,9 +6,19 @@ export const HomeHero: Block = {
   interfaceName: 'HomeHeroBlock',
   labels: { singular: 'Home Hero Banner', plural: 'Home Hero Blocks' },
   fields: [
-    { name: 'badge', type: 'text', admin: { description: 'Small pill badge above headline e.g. "New Collection"' } },
-    { name: 'headline', type: 'text', required: true, defaultValue: 'Press-On Perfection.' },
-    { name: 'subheadline', type: 'textarea', defaultValue: 'Welcome to your new site. Configure your content in the admin panel.' },
+    { name: 'badge', type: 'text', admin: { description: 'Small pill badge above headline e.g. "Now Booking 2027 Weddings"' } },
+    {
+      name: 'headline',
+      type: 'text',
+      required: true,
+      defaultValue: 'Bespoke Wedding Stationery, Crafted with Love',
+    },
+    {
+      name: 'subheadline',
+      type: 'textarea',
+      defaultValue:
+        'Hand-finished invitations and on-the-day paper goods, designed around your story and printed on the finest papers.',
+    },
     linkGroup({ overrides: { maxRows: 2 } }),
     { name: 'backgroundImage', type: 'upload', relationTo: 'media', admin: { description: 'Full-width background image' } },
     {
@@ -24,11 +34,11 @@ export const HomeHero: Block = {
     {
       name: 'theme',
       type: 'select',
-      defaultValue: 'dark',
+      defaultValue: 'light',
       options: [
-        { label: 'Dark (light text)', value: 'dark' },
         { label: 'Light (dark text)', value: 'light' },
-        { label: 'Pink gradient', value: 'pink' },
+        { label: 'Dark charcoal (light text)', value: 'dark' },
+        { label: 'Soft gradient (dark text)', value: 'pink' },
       ],
     },
     {

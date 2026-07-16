@@ -4,6 +4,7 @@ import type { TestimonialsBlock as TestimonialsBlockProps } from '@/payload-type
 
 import RichText from '@/components/RichText'
 import { Media } from '@/components/Media'
+import { LeafDivider } from '@/components/Botanical'
 
 export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
   heading,
@@ -15,16 +16,20 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
       <section className="py-20 md:py-28 bg-background">
         <div className="container max-w-3xl">
           {heading && (
-            <h2 className="text-3xl md:text-4xl font-serif tracking-tight text-center mb-16">
-              {heading}
-            </h2>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-4">{heading}</h2>
+              <LeafDivider />
+            </div>
           )}
           <div className="flex flex-col gap-16 md:gap-20">
             {testimonials?.map((testimonial, i) => (
               <div key={i} className="flex flex-col items-center text-center gap-6">
+                <span className="font-serif text-6xl leading-none text-[var(--accent)]" aria-hidden="true">
+                  &ldquo;
+                </span>
                 {testimonial.quote && (
                   <RichText
-                    className="mb-0 font-serif italic text-2xl md:text-3xl leading-snug text-foreground [&_p]:mb-0"
+                    className="mb-0 -mt-8 font-serif italic text-2xl md:text-3xl leading-snug text-foreground [&_p]:mb-0"
                     data={testimonial.quote}
                     enableGutter={false}
                   />

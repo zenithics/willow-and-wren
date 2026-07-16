@@ -7,6 +7,7 @@ import type { FeaturedProductsBlock as FeaturedProductsBlockProps } from '@/payl
 
 import { Media } from '@/components/Media'
 import { formatPrice } from '@/utilities/formatPrice'
+import { ImagePlaceholder, LeafDivider } from '@/components/Botanical'
 
 export const FeaturedProductsBlock: React.FC<FeaturedProductsBlockProps> = async ({
   heading,
@@ -51,7 +52,8 @@ export const FeaturedProductsBlock: React.FC<FeaturedProductsBlockProps> = async
             {heading && (
               <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-4">{heading}</h2>
             )}
-            {subheading && <p className="text-muted-foreground text-lg">{subheading}</p>}
+            <LeafDivider className="mb-4" />
+            {subheading && <p className="font-serif text-muted-foreground text-lg">{subheading}</p>}
           </div>
         )}
 
@@ -65,12 +67,14 @@ export const FeaturedProductsBlock: React.FC<FeaturedProductsBlockProps> = async
                 href={`/shop/products/${product.slug}`}
                 className="group flex flex-col"
               >
-                <div className="aspect-square overflow-hidden rounded-sm bg-muted mb-4 shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
-                  {image && typeof image === 'object' && (
+                <div className="relative aspect-square overflow-hidden rounded-sm mb-4 shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
+                  {image && typeof image === 'object' ? (
                     <Media
                       resource={image}
                       imgClassName="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                     />
+                  ) : (
+                    <ImagePlaceholder />
                   )}
                 </div>
                 <h3 className="text-lg font-serif tracking-tight mb-1">{product.title}</h3>
