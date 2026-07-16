@@ -29,15 +29,15 @@ function resolveLinkHref(link: any): string {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
   // Full-bleed dark heroes (e.g. HighImpactHero, or HomeHero with a
   // background image) call setHeaderTheme('dark') while they're showing —
   // that's our cue to float a transparent, light-text header on top of them.
-  // Everywhere else the header keeps its normal solid background.
-  const isTransparent = theme === 'dark' && !scrolled && !mobileOpen
+  // Everywhere else the header keeps its normal solid background. Doesn't
+  // change based on scroll position at all — same look top to bottom.
+  const isTransparent = theme === 'dark' && !mobileOpen
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -49,12 +49,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
     if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 8)
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
 
   const navLeft = (data?.navItemsLeft ?? []).map((item: any) => ({
     href: resolveLinkHref(item.link),
@@ -76,11 +70,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
         } ${
           isTransparent
             ? 'bg-black/20 backdrop-blur-md border-white/15'
-            : theme === 'dark'
-              // Scrolled past a genuinely dark hero (e.g. HighImpactHero) — solidify for legibility.
-              ? 'bg-white/95 backdrop-blur-sm shadow-sm border-border'
-              // Normal pages (including the homepage) — same solid look from top to bottom, no scroll-based change.
-              : 'bg-background border-border shadow-sm'
+            : 'bg-background border-border shadow-sm'
         }`}
         {...(theme ? { 'data-theme': theme } : {})}
       >

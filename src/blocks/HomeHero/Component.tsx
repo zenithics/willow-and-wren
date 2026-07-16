@@ -1,7 +1,10 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import type { HomeHeroBlock as HomeHeroBlockProps } from '@/payload-types'
 import { ImagePlaceholder, Sprig } from '@/components/Botanical'
+import { useHeaderTheme } from '@/providers/HeaderTheme'
 
 /**
  * Only --background/--foreground/--primary/--secondary/--accent are kept
@@ -47,31 +50,47 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
   const t = THEME_CLASSES[theme as keyof typeof THEME_CLASSES] || THEME_CLASSES.light
   const hasImage = backgroundImage && typeof backgroundImage === 'object'
 
+  // Only 'fullwidth'/'centred' actually span edge-to-edge behind the sticky
+  // header — 'split' only fills half the width, so the header should stay
+  // on its normal solid background there. Tell the header to go transparent
+  // with light text only when there's a real image to float it over.
+  const wantsDarkHeader = Boolean(hasImage) && (style === 'fullwidth' || style === 'centred')
+  const { setHeaderTheme } = useHeaderTheme()
+  useEffect(() => {
+    setHeaderTheme(wantsDarkHeader ? 'dark' : 'light')
+  }, [wantsDarkHeader, setHeaderTheme])
+
+  // The sticky header still occupies its own flow height even when
+  // transparent (pt-4 floating gap + h-16 pill = 5rem/80px) — without this
+  // negative margin the hero gets pushed down below it instead of the
+  // header floating over it.
+  const overlapHeaderClass = wantsDarkHeader ? '-mt-20' : ''
+
   if (style === 'centred') {
     return (
       <section
-        className={`relative min-h-[75vh] flex items-center justify-center text-center px-6 py-24 ${t.wrapper}`}
+        className={`relative min-h-[75vh] flex items-center justify-center text-center px-6 py-24 ${overlapHeaderClass} ${t.wrapper}`}
         style={hasImage ? { backgroundImage: `url(${(backgroundImage as any).url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
       >
-        {hasImage && <div className="absolute inset-0 bg-background/60" />}
+        {hasImage && <div className="absolute inset-0 bg-black/50" />}
         {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-3xl mx-auto">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 ${
-              hasImage ? 'bg-white/70 text-primary border border-primary/20' : t.badge
+              hasImage ? 'bg-white/20 text-white border border-white/30' : t.badge
             }`}>
               {badge}
             </span>
           )}
-          <h1 className={`font-serif text-5xl md:text-7xl leading-tight mb-5 ${hasImage ? 'text-foreground' : t.headline}`}>
+          <h1 className={`font-serif text-5xl md:text-7xl leading-tight mb-5 ${hasImage ? 'text-white' : t.headline}`}>
             {headline}
           </h1>
           {subheadline && (
-            <p className={`font-serif text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed ${hasImage ? 'text-foreground/75' : t.sub}`}>
+            <p className={`font-serif text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed ${hasImage ? 'text-white/80' : t.sub}`}>
               {subheadline}
             </p>
           )}
-          <HeroLinks links={links} variant={hasImage ? 'light' : t.links} />
+          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} />
         </div>
       </section>
     )
@@ -79,7 +98,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   if (style === 'fullwidth') {
     return (
-      <section className={`relative min-h-screen flex items-center justify-center text-center px-6 py-24 ${t.wrapper}`}>
+      <section className={`relative min-h-screen flex items-center justify-center text-center px-6 py-24 ${overlapHeaderClass} ${t.wrapper}`}>
         {hasImage && (
           <>
             <img
@@ -87,29 +106,29 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
               alt={(backgroundImage as any).alt || headline}
               className="absolute inset-0 w-full h-full object-cover"
             />
-            {/* Light wash keeps the centred copy readable anywhere on the image, with a soft vignette adding a touch more depth top and bottom. */}
-            <div className="absolute inset-0 bg-background/55" />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-transparent to-background/60" />
+            {/* Flat wash keeps the centred copy readable anywhere on the image; the soft vignette adds a little extra depth top and bottom. */}
+            <div className="absolute inset-0 bg-black/35" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/50" />
           </>
         )}
         {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-3xl mx-auto">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${
-              hasImage ? 'bg-white/70 text-primary border border-primary/20' : t.badge
+              hasImage ? 'bg-white/20 text-white border border-white/30' : t.badge
             }`}>
               {badge}
             </span>
           )}
-          <h1 className={`font-serif italic text-6xl md:text-7xl lg:text-8xl leading-[1.05] mb-5 ${hasImage ? 'text-foreground' : t.headline}`}>
+          <h1 className={`font-serif italic text-6xl md:text-7xl lg:text-8xl leading-[1.05] mb-5 ${hasImage ? 'text-white' : t.headline}`}>
             {headline}
           </h1>
           {subheadline && (
-            <p className={`font-serif text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto ${hasImage ? 'text-foreground/75' : t.sub}`}>
+            <p className={`font-serif text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto ${hasImage ? 'text-white/85' : t.sub}`}>
               {subheadline}
             </p>
           )}
-          <HeroLinks links={links} variant={hasImage ? 'light' : t.links} align="center" />
+          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} align="center" />
         </div>
       </section>
     )
