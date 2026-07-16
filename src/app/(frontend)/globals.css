@@ -46,6 +46,8 @@
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-dm-sans), system-ui, sans-serif;
   --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-script: var(--font-parisienne), cursive;
+  --font-eb-garamond: var(--font-eb-garamond), Georgia, serif;
 }
 
 @layer utilities {
@@ -101,13 +103,13 @@
   --secondary: #D8D2C8; /* Stone */
   --secondary-foreground: #494844;
   --muted: #EFEBE3; /* lighter stone wash */
-  --muted-foreground: #8A867D; /* mid charcoal */
+  --muted-foreground: #9A968C; /* mid charcoal-stone */
   --accent: #C6A86A; /* Antique Gold */
   --accent-foreground: #FFFFFF;
   --destructive: oklch(57.7% 0.245 27.325deg);
   --destructive-foreground: oklch(100% 0 0);
-  --border: #E5E0D6; /* subtle stone border */
-  --input: #E5E0D6;
+  --border: #D8D2C8; /* Stone */
+  --input: #D8D2C8;
   --ring: #A6B09A; /* Sage ring */
   --chart-1: #A6B09A; /* Sage */
   --chart-2: #C6A86A; /* Gold */

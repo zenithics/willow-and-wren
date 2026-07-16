@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import { Cormorant_Garamond, DM_Sans, EB_Garamond, Parisienne } from 'next/font/google'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -44,6 +44,18 @@ const cormorant = Cormorant_Garamond({
   variable: '--font-cormorant',
 })
 
+const parisienne = Parisienne({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-parisienne',
+})
+
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-eb-garamond',
+})
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const { getPayload } = await import('payload')
@@ -68,7 +80,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html
-      className={`${dmSans.variable} ${cormorant.variable} ${GeistMono.variable}`}
+      className={`${dmSans.variable} ${cormorant.variable} ${parisienne.variable} ${ebGaramond.variable} ${GeistMono.variable}`}
       lang={locale.language}
       suppressHydrationWarning
     >

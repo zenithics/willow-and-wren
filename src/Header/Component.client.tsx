@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 import type { Header, Media } from '@/payload-types'
 import Image from 'next/image'
-import { CartIndicator } from '@/components/CartIndicator'
+import { useCart } from '@/providers/Cart'
 
 interface HeaderClientProps {
   data: Header
@@ -26,11 +26,20 @@ function resolveLinkHref(link: any): string {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+  const { itemCount } = useCart()
 
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 40)
+    handler()
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
 
   const navLeft = (data?.navItemsLeft ?? []).map((item: any) => ({
     href: resolveLinkHref(item.link),
@@ -47,75 +56,95 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
   const navItems = [...navLeft, ...navRight]
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background border-b border-border">
-      <div className="max-w-[1280px] mx-auto px-6">
-        <div className="flex items-center justify-between h-20">
+    <header className="sticky top-0 z-50 w-full bg-background/96 backdrop-blur-[6px] border-b border-border transition-[padding] duration-300">
+      <div
+        className={`max-w-[1360px] mx-auto grid grid-cols-[auto_1fr_auto] items-center px-6 md:px-12 transition-[padding] duration-300 ${
+          scrolled ? 'py-3' : 'py-[22px]'
+        }`}
+      >
+        {/* Logo — left */}
+        <Link href="/" aria-label="Home" className="flex flex-col gap-0.5 justify-self-start">
+          {logo?.url ? (
+            <Image
+              src={logo.url}
+              alt={logo.alt || 'Logo'}
+              width={logo.width ?? 160}
+              height={logo.height ?? 40}
+              className="h-9 w-auto object-contain"
+              priority
+            />
+          ) : (
+            <>
+              <span className="font-serif font-medium text-[21px] tracking-[0.28em] text-foreground whitespace-nowrap">
+                WILLOW{' '}
+                <span className="font-script tracking-normal text-[0.85em] text-primary">&amp;</span>
+                {' '}WREN
+              </span>
+              <span className="font-serif text-[9px] tracking-[0.42em] text-muted-foreground">
+                BESPOKE WEDDING STATIONERY
+              </span>
+            </>
+          )}
+        </Link>
 
-          {/* Logo — left */}
-          <Link href="/" aria-label="Home" className="flex flex-col items-start gap-0.5">
-            {logo?.url ? (
-              <Image
-                src={logo.url}
-                alt={logo.alt || 'Logo'}
-                width={logo.width ?? 160}
-                height={logo.height ?? 40}
-                className="h-9 w-auto object-contain"
-                priority
-              />
-            ) : (
-              <>
-                <span className="font-serif text-lg tracking-[0.2em] uppercase text-foreground">
-                  Willow &amp; Wren
-                </span>
-                <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
-                  Bespoke Wedding Stationery
-                </span>
-              </>
+        {/* Nav — centred */}
+        <nav className="hidden md:flex gap-11 justify-self-center" aria-label="Primary navigation">
+          {navItems.map(({ href, label, newTab }) => (
+            <Link
+              key={href}
+              href={href}
+              target={newTab ? '_blank' : undefined}
+              rel={newTab ? 'noopener noreferrer' : undefined}
+              className="font-serif text-[15px] tracking-[0.22em] uppercase text-foreground/85 pb-[3px] border-b border-transparent hover:text-accent hover:border-accent transition-colors duration-300"
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Actions — right */}
+        <div className="flex items-center gap-6 justify-self-end">
+          <Link
+            href="/search"
+            aria-label="Search"
+            className="font-serif text-[17px] text-foreground/85 hover:text-accent transition-colors duration-300"
+          >
+            ⌕
+          </Link>
+          <Link
+            href="/cart"
+            aria-label={`Shopping bag, ${itemCount} item${itemCount === 1 ? '' : 's'}`}
+            className="relative font-serif text-[15px] tracking-[0.18em] uppercase text-foreground/85 hover:text-accent transition-colors duration-300"
+          >
+            Bag
+            {itemCount > 0 && (
+              <span className="absolute -top-[9px] -right-4 flex items-center justify-center w-4 h-4 rounded-full bg-accent text-background text-[10px] font-eb-garamond">
+                {itemCount}
+              </span>
             )}
           </Link>
 
-          {/* Nav + cart — right */}
-          <div className="flex items-center gap-6 md:gap-8">
-            <nav className="hidden md:flex items-center gap-8" aria-label="Primary navigation">
-              {navItems.map(({ href, label, newTab }) => {
-                const isActive =
-                  pathname === href || (href !== '/' && pathname.startsWith(href.split('?')[0]))
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    target={newTab ? '_blank' : undefined}
-                    rel={newTab ? 'noopener noreferrer' : undefined}
-                    className={`group relative text-xs font-medium tracking-[0.15em] uppercase transition-colors hover:text-accent ${
-                      isActive ? 'text-accent' : 'text-foreground/70'
-                    }`}
-                  >
-                    {label}
-                    <span
-                      className={`absolute left-0 -bottom-1 h-px bg-accent transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                      }`}
-                    />
-                  </Link>
-                )
-              })}
-            </nav>
-
-            <CartIndicator />
-
-            {/* Mobile hamburger */}
-            <button
-              className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            >
-              <span className={`block h-0.5 w-5 bg-foreground transition-transform duration-200 origin-center ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`block h-0.5 w-5 bg-foreground transition-opacity duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
-              <span className={`block h-0.5 w-5 bg-foreground transition-transform duration-200 origin-center ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-            </button>
-          </div>
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span className={`block h-0.5 w-5 bg-foreground transition-transform duration-200 origin-center ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block h-0.5 w-5 bg-foreground transition-opacity duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-0.5 w-5 bg-foreground transition-transform duration-200 origin-center ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
         </div>
       </div>
+
+      {/* Bottom sage gradient accent line */}
+      <div
+        className="h-0.5"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent, var(--primary) 30%, var(--primary) 70%, transparent)',
+        }}
+      />
 
       {/* Mobile menu */}
       <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[32rem]' : 'max-h-0'}`}>
@@ -126,7 +155,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
               href={href}
               target={newTab ? '_blank' : undefined}
               rel={newTab ? 'noopener noreferrer' : undefined}
-              className="py-3 text-xs font-medium tracking-[0.15em] uppercase border-b border-border last:border-0 text-foreground/80 hover:text-accent transition-colors"
+              className="py-3 font-serif text-[15px] tracking-[0.22em] uppercase border-b border-border last:border-0 text-foreground/85 hover:text-accent transition-colors"
             >
               {label}
             </Link>
