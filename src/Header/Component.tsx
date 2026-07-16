@@ -15,11 +15,15 @@ export async function Header() {
   }
 
   let logo: Media | null = null
+  let logoDark: Media | null = null
   try {
     const payload = await getPayload({ config: configPromise })
     const appearance = await payload.findGlobal({ slug: 'site-appearance', depth: 1 })
     if (appearance?.logo && typeof appearance.logo === 'object') {
       logo = appearance.logo as Media
+    }
+    if (appearance?.logoDark && typeof appearance.logoDark === 'object') {
+      logoDark = appearance.logoDark as Media
     }
   } catch {
     // No DB at build time — logo stays null, text fallback renders
@@ -27,5 +31,5 @@ export async function Header() {
 
   if (!headerData) return null
 
-  return <HeaderClient data={headerData} logo={logo} />
+  return <HeaderClient data={headerData} logo={logo} logoDark={logoDark} />
 }

@@ -12,6 +12,7 @@ import { CartIndicator } from '@/components/CartIndicator'
 interface HeaderClientProps {
   data: Header
   logo?: Media | null
+  logoDark?: Media | null
 }
 
 function resolveLinkHref(link: any): string {
@@ -25,12 +26,18 @@ function resolveLinkHref(link: any): string {
   return '#'
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
+
+  // The homepage hero is a full-bleed image with a transparent header
+  // floating on top of it — everywhere else the header keeps its normal
+  // solid background from the very top of the page.
+  const isHomepage = pathname === '/'
+  const isTransparent = isHomepage && !scrolled && !mobileOpen
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -67,7 +74,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
         className={`sticky top-0 z-50 w-full transition-all duration-200 ${
           scrolled
             ? 'bg-white/95 backdrop-blur-sm shadow-sm'
-            : 'bg-background'
+            : isTransparent
+              ? 'bg-transparent'
+              : 'bg-background'
         }`}
         {...(theme ? { 'data-theme': theme } : {})}
       >
@@ -76,7 +85,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
 
             {/* Logo — left */}
             <Link href="/" aria-label="Home">
-              {logo?.url ? (
+              {isTransparent && logoDark?.url ? (
+                <Image
+                  src={logoDark.url}
+                  alt={logoDark.alt || 'Logo'}
+                  width={logoDark.width ?? 160}
+                  height={logoDark.height ?? 40}
+                  className="h-8 w-auto object-contain"
+                  priority
+                />
+              ) : logo?.url ? (
                 <Image
                   src={logo.url}
                   alt={logo.alt || 'Logo'}
@@ -86,7 +104,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
                   priority
                 />
               ) : (
-                <span className="font-sans text-xl font-semibold tracking-tight text-foreground hover:text-primary transition-colors">
+                <span
+                  className={`font-sans text-xl font-semibold tracking-tight transition-colors hover:text-primary ${
+                    isTransparent ? 'text-white' : 'text-foreground'
+                  }`}
+                >
                   Your Brand
                 </span>
               )}
@@ -104,7 +126,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
                     className={`text-sm font-medium transition-colors hover:text-primary ${
                       pathname === href || (href !== '/' && pathname.startsWith(href.split('?')[0]))
                         ? 'text-primary'
-                        : 'text-foreground/80'
+                        : isTransparent
+                          ? 'text-white/90'
+                          : 'text-foreground/80'
                     }`}
                   >
                     {label}
@@ -112,7 +136,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
                 ))}
               </nav>
 
-              <CartIndicator />
+              <CartIndicator className={isTransparent ? 'text-white/90 hover:text-white' : undefined} />
 
               {/* Mobile hamburger */}
               <button
@@ -120,9 +144,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               >
-                <span className={`block h-0.5 w-5 bg-foreground transition-transform duration-200 origin-center ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-                <span className={`block h-0.5 w-5 bg-foreground transition-opacity duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
-                <span className={`block h-0.5 w-5 bg-foreground transition-transform duration-200 origin-center ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                <span className={`block h-0.5 w-5 transition-transform duration-200 origin-center ${isTransparent ? 'bg-white' : 'bg-foreground'} ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                <span className={`block h-0.5 w-5 transition-opacity duration-200 ${isTransparent ? 'bg-white' : 'bg-foreground'} ${mobileOpen ? 'opacity-0' : ''}`} />
+                <span className={`block h-0.5 w-5 transition-transform duration-200 origin-center ${isTransparent ? 'bg-white' : 'bg-foreground'} ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
               </button>
             </div>
           </div>

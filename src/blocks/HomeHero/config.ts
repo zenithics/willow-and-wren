@@ -11,23 +11,30 @@ export const HomeHero: Block = {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'Bespoke Wedding Stationery, Crafted with Love',
+      defaultValue: 'Willow & Wren',
     },
     {
       name: 'subheadline',
       type: 'textarea',
-      defaultValue:
-        'Hand-finished invitations and on-the-day paper goods, designed around your story and printed on the finest papers.',
+      defaultValue: 'Bespoke Wedding Stationery, Crafted with Love',
     },
-    linkGroup({ overrides: { maxRows: 2 } }),
+    linkGroup({
+      overrides: {
+        maxRows: 2,
+        defaultValue: [
+          { link: { type: 'custom', url: '/shop', label: 'Shop Collections', appearance: 'default' } },
+          { link: { type: 'custom', url: '/contact', label: 'Get in Touch', appearance: 'outline' } },
+        ],
+      },
+    }),
     { name: 'backgroundImage', type: 'upload', relationTo: 'media', admin: { description: 'Full-width background image' } },
     {
       name: 'style',
       type: 'select',
-      defaultValue: 'split',
+      defaultValue: 'fullwidth',
       options: [
-        { label: 'Split (text left, image right)', value: 'split' },
         { label: 'Full-width overlay', value: 'fullwidth' },
+        { label: 'Split (text left, image right)', value: 'split' },
         { label: 'Centred', value: 'centred' },
       ],
     },

@@ -87,10 +87,10 @@ export async function Footer() {
 
   const socialLinks = (
     [
-      { label: 'Instagram', href: footerData?.instagramUrl },
-      { label: 'TikTok', href: footerData?.tiktokUrl },
-      { label: 'Pinterest', href: footerData?.pinterestUrl },
-      { label: 'Facebook', href: footerData?.facebookUrl },
+      { label: 'Instagram', href: footerData?.instagramUrl ?? 'https://instagram.com' },
+      { label: 'TikTok', href: footerData?.tiktokUrl ?? 'https://tiktok.com' },
+      { label: 'Pinterest', href: footerData?.pinterestUrl ?? 'https://pinterest.com' },
+      { label: 'Facebook', href: footerData?.facebookUrl ?? 'https://facebook.com' },
     ] as { label: string; href?: string | null }[]
   ).filter((social): social is { label: string; href: string } => Boolean(social.href))
 
@@ -158,7 +158,13 @@ export async function Footer() {
             </div>
             {(contactEmail || contactHours) && (
               <div className="mt-6 text-xs text-white/40 leading-relaxed">
-                {contactEmail && <p>{contactEmail}</p>}
+                {contactEmail && (
+                  <p>
+                    <a href={`mailto:${contactEmail}`} className="hover:text-white transition-colors">
+                      {contactEmail}
+                    </a>
+                  </p>
+                )}
                 {contactHours && <p className="mt-1">{contactHours}</p>}
               </div>
             )}

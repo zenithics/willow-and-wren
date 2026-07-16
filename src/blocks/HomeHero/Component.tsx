@@ -79,11 +79,19 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   if (style === 'fullwidth') {
     return (
-      <section
-        className={`relative min-h-[80vh] flex items-end pb-16 px-6 md:px-12 ${t.wrapper}`}
-        style={hasImage ? { backgroundImage: `url(${(backgroundImage as any).url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
-      >
-        {hasImage && <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />}
+      <section className={`relative min-h-screen flex items-end pb-20 md:pb-24 px-6 md:px-16 ${t.wrapper}`}>
+        {hasImage && (
+          <>
+            <img
+              src={(backgroundImage as any).url}
+              alt={(backgroundImage as any).alt || headline}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {/* Top vignette keeps the transparent header legible; bottom vignette keeps the copy legible */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+          </>
+        )}
         {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-2xl">
           {badge && (
@@ -93,11 +101,11 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
               {badge}
             </span>
           )}
-          <h1 className={`font-serif text-5xl md:text-6xl leading-tight mb-4 ${hasImage ? 'text-white' : t.headline}`}>
+          <h1 className={`font-serif italic text-6xl md:text-7xl lg:text-8xl leading-[1.05] mb-5 ${hasImage ? 'text-white' : t.headline}`}>
             {headline}
           </h1>
           {subheadline && (
-            <p className={`font-serif text-base mb-7 leading-relaxed max-w-lg ${hasImage ? 'text-white/75' : t.sub}`}>
+            <p className={`font-serif text-lg md:text-xl mb-8 leading-relaxed max-w-lg ${hasImage ? 'text-white/85' : t.sub}`}>
               {subheadline}
             </p>
           )}
