@@ -14,8 +14,8 @@ export function FooterNewsletterForm() {
 
   if (submitted) {
     return (
-      <p className="text-sm text-pink-300 font-medium">
-        ✓ You're on the list — check your inbox for your 10% code!
+      <p className="text-sm text-accent font-medium">
+        ✓ You&rsquo;re on the list — we&rsquo;ll be in touch soon.
       </p>
     )
   }
