@@ -60,10 +60,11 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
     setHeaderTheme(wantsDarkHeader ? 'dark' : 'light')
   }, [wantsDarkHeader, setHeaderTheme])
 
-  // The sticky header still occupies its own 64px (h-16) of normal flow
-  // height even when transparent — without this negative margin the hero
-  // gets pushed down below it instead of the header floating over it.
-  const overlapHeaderClass = wantsDarkHeader ? '-mt-16' : ''
+  // The sticky header still occupies its own flow height even when
+  // transparent (pt-4 floating gap + h-16 pill = 5rem/80px) — without this
+  // negative margin the hero gets pushed down below it instead of the
+  // header floating over it.
+  const overlapHeaderClass = wantsDarkHeader ? '-mt-20' : ''
 
   if (style === 'centred') {
     return (
@@ -97,7 +98,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   if (style === 'fullwidth') {
     return (
-      <section className={`relative min-h-screen flex items-end pb-20 md:pb-24 px-6 md:px-16 ${overlapHeaderClass} ${t.wrapper}`}>
+      <section className={`relative min-h-screen flex items-center justify-center text-center px-6 py-24 ${overlapHeaderClass} ${t.wrapper}`}>
         {hasImage && (
           <>
             <img
@@ -105,13 +106,13 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
               alt={(backgroundImage as any).alt || headline}
               className="absolute inset-0 w-full h-full object-cover"
             />
-            {/* Top vignette keeps the transparent header legible; bottom vignette keeps the copy legible */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+            {/* Flat wash keeps the centred copy readable anywhere on the image; the soft vignette adds a little extra depth top and bottom. */}
+            <div className="absolute inset-0 bg-black/35" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/50" />
           </>
         )}
         {botanicalOverlay && <BotanicalOverlay />}
-        <div className="relative z-10 max-w-2xl">
+        <div className="relative z-10 max-w-3xl mx-auto">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${
               hasImage ? 'bg-white/20 text-white border border-white/30' : t.badge
@@ -123,11 +124,11 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
             {headline}
           </h1>
           {subheadline && (
-            <p className={`font-serif text-lg md:text-xl mb-8 leading-relaxed max-w-lg ${hasImage ? 'text-white/85' : t.sub}`}>
+            <p className={`font-serif text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto ${hasImage ? 'text-white/85' : t.sub}`}>
               {subheadline}
             </p>
           )}
-          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} />
+          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} align="center" />
         </div>
       </section>
     )
@@ -183,9 +184,11 @@ function BotanicalOverlay() {
 function HeroLinks({
   links,
   variant = 'dark',
+  align = 'left',
 }: {
   links: HomeHeroBlockProps['links']
   variant?: 'dark' | 'light'
+  align?: 'left' | 'center'
 }) {
   if (!links || links.length === 0) return null
   const secondaryClass =
@@ -194,7 +197,7 @@ function HeroLinks({
       : 'border border-white/30 text-white hover:bg-white/10'
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className={`flex flex-wrap gap-3 ${align === 'center' ? 'justify-center' : ''}`}>
       {links.map(({ link }, i) => {
         const href = link.type === 'reference' && link.reference
           ? `/${(link.reference.value as any)?.slug || ''}`
