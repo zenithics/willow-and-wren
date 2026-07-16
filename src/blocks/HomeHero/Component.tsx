@@ -94,13 +94,13 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
           <ImagePlaceholder />
         )}
         {botanicalOverlay && <BotanicalOverlay />}
-        <div className="relative z-10 max-w-2xl">
+        <div className="relative z-10 max-w-5xl px-4">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${t.badge}`}>
               {badge}
             </span>
           )}
-          <h1 className="font-serif uppercase tracking-[0.08em] text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 text-foreground">
+          <h1 className="font-serif font-normal uppercase tracking-[0.12em] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-3 text-foreground lg:whitespace-nowrap">
             {headline}
           </h1>
           {subheadline && (
