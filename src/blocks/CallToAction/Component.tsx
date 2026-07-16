@@ -4,7 +4,6 @@ import type { CallToActionBlock as CTABlockProps } from '@/payload-types'
 
 import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
-import { Sprig } from '@/components/Botanical'
 
 export const CallToActionBlock: React.FC<CTABlockProps> = ({
   style = 'card',
@@ -19,10 +18,8 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
         : 'bg-primary text-background hover:bg-primary/90'
 
     return (
-      <section className="relative overflow-hidden py-20 md:py-24 text-center bg-secondary">
-        <Sprig className="pointer-events-none absolute top-6 left-6 w-10 h-16 text-primary/25 -rotate-12" aria-hidden="true" />
-        <Sprig className="pointer-events-none absolute bottom-6 right-6 w-10 h-16 text-primary/25 rotate-[168deg]" aria-hidden="true" />
-        <div className="relative container max-w-2xl flex flex-col items-center gap-8">
+      <section className="py-20 md:py-28 text-center bg-secondary">
+        <div className="container max-w-2xl flex flex-col items-center gap-8">
           {richText && <RichText className="mb-0" data={richText} enableGutter={false} />}
           <div className="flex flex-wrap justify-center gap-4">
             {(links || []).map(({ link }, i) => (
@@ -35,7 +32,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
   }
 
   return (
-    <div className="container">
+    <div className="container py-16 md:py-20">
       <div className="bg-card rounded border-border border p-4 flex flex-col gap-8 md:flex-row md:justify-between md:items-center">
         <div className="max-w-[48rem] flex items-center">
           {richText && <RichText className="mb-0" data={richText} enableGutter={false} />}

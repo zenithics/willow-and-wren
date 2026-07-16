@@ -45,7 +45,7 @@ export const FeaturedProductsBlock: React.FC<FeaturedProductsBlockProps> = async
   if (!orderedProducts.length) return null
 
   return (
-    <section className="py-20 md:py-24 bg-background">
+    <section className="py-20 md:py-28 bg-background">
       <div className="container">
         {(heading || subheading) && (
           <div className="text-center max-w-2xl mx-auto mb-14">

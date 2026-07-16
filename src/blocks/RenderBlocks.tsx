@@ -62,6 +62,16 @@ const blockComponents = {
   featuredProducts: FeaturedProductsBlock,
 }
 
+/**
+ * Most blocks own their own vertical rhythm (a `py-*` section with its own
+ * background). A handful of older "bare" blocks don't, and MediaBlock can't
+ * safely be given its own padding since it's also rendered inline inside
+ * RichText content — those are the only ones that still need an external
+ * margin here. Giving every block a blanket margin double-spaces the ones
+ * that already pad themselves, which is what caused the uneven gaps.
+ */
+const BLOCKS_NEEDING_EXTERNAL_MARGIN = new Set(['mediaBlock'])
+
 export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]
 }> = (props) => {
@@ -79,8 +89,9 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
+              const className = BLOCKS_NEEDING_EXTERNAL_MARGIN.has(blockType) ? 'my-16' : undefined
               return (
-                <div className="my-16" key={index}>
+                <div className={className} key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

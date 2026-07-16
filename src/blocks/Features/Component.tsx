@@ -18,7 +18,7 @@ export const FeaturesBlock: React.FC<FeaturesBlockProps> = ({
   features,
 }) => {
   return (
-    <div className="container">
+    <div className="container py-16 md:py-20">
       {(heading || description) && (
         <div className="text-center mb-12 max-w-2xl mx-auto">
           {heading && <h2 className="text-3xl font-bold mb-4">{heading}</h2>}

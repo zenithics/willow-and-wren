@@ -108,8 +108,10 @@ export default async function Page({ params: paramsPromise }: Args) {
     }
   }
 
+  const hasTraditionalHero = Boolean(hero?.type && hero.type !== 'none')
+
   return (
-    <article className="pt-16 pb-24">
+    <article className={hasTraditionalHero ? 'pt-16' : undefined}>
       {faqJsonLd && (
         <script
           type="application/ld+json"

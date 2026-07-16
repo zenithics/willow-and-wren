@@ -6,7 +6,7 @@ import { CMSLink } from '@/components/Link'
 
 export const PricingBlock: React.FC<PricingBlockProps> = ({ heading, description, plans }) => {
   return (
-    <div className="container">
+    <div className="container py-16 md:py-20">
       {(heading || description) && (
         <div className="text-center mb-12 max-w-2xl mx-auto">
           {heading && <h2 className="text-3xl font-bold mb-4">{heading}</h2>}

@@ -24,7 +24,7 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
           <div className="flex flex-col gap-16 md:gap-20">
             {testimonials?.map((testimonial, i) => (
               <div key={i} className="flex flex-col items-center text-center gap-6">
-                <span className="font-serif text-6xl leading-none text-[var(--accent)]" aria-hidden="true">
+                <span className="font-serif text-6xl leading-none text-accent" aria-hidden="true">
                   &ldquo;
                 </span>
                 {testimonial.quote && (
@@ -58,7 +58,7 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps> = ({
   }
 
   return (
-    <div className="container">
+    <div className="container py-16 md:py-20">
       {heading && (
         <h2 className="text-3xl font-bold text-center mb-12">{heading}</h2>
       )}

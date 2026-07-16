@@ -42,7 +42,7 @@ export const CategoryStripBlock: React.FC<CategoryStripBlockProps> = async ({
   if (!orderedCategories.length) return null
 
   return (
-    <section className="py-16 md:py-20 bg-background">
+    <section className="py-20 md:py-28 bg-background">
       <div className="container">
         {heading && (
           <div className="text-center mb-12">

@@ -6,7 +6,7 @@ import { Media } from '@/components/Media'
 
 export const LogoCarouselBlock: React.FC<LogoCarouselBlockProps> = ({ heading, logos }) => {
   return (
-    <div className="container">
+    <div className="container py-16 md:py-20">
       {heading && (
         <p className="text-center text-sm uppercase tracking-wider text-muted-foreground mb-8">
           {heading}

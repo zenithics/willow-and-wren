@@ -4,7 +4,7 @@ import type { StatsBlock as StatsBlockProps } from '@/payload-types'
 
 export const StatsBlock: React.FC<StatsBlockProps> = ({ heading, stats }) => {
   return (
-    <div className="container">
+    <div className="container py-16 md:py-20">
       {heading && (
         <h2 className="text-3xl font-bold text-center mb-12">{heading}</h2>
       )}

@@ -10,7 +10,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ heading, description, items 
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <div className="container max-w-3xl">
+    <div className="container max-w-3xl py-16 md:py-20">
       {heading && (
         <h2 className="text-3xl font-bold text-center mb-4">{heading}</h2>
       )}
