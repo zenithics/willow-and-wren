@@ -4,13 +4,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-import type { Header, Media } from '@/payload-types'
-import Image from 'next/image'
+import type { Header } from '@/payload-types'
 import { useCart } from '@/providers/Cart'
 
 interface HeaderClientProps {
   data: Header
-  logo?: Media | null
 }
 
 function resolveLinkHref(link: any): string {
@@ -24,7 +22,7 @@ function resolveLinkHref(link: any): string {
   return '#'
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
@@ -64,27 +62,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo }) => {
       >
         {/* Logo — left */}
         <Link href="/" aria-label="Home" className="flex flex-col gap-0.5 justify-self-start">
-          {logo?.url ? (
-            <Image
-              src={logo.url}
-              alt={logo.alt || 'Logo'}
-              width={logo.width ?? 160}
-              height={logo.height ?? 40}
-              className="h-9 w-auto object-contain"
-              priority
-            />
-          ) : (
-            <>
-              <span className="font-serif font-medium text-[21px] tracking-[0.28em] text-foreground whitespace-nowrap">
-                WILLOW{' '}
-                <span className="font-script tracking-normal text-[0.85em] text-primary">&amp;</span>
-                {' '}WREN
-              </span>
-              <span className="font-serif text-[9px] tracking-[0.42em] text-muted-foreground">
-                BESPOKE WEDDING STATIONERY
-              </span>
-            </>
-          )}
+          <span className="font-serif font-medium text-[21px] tracking-[0.28em] text-foreground whitespace-nowrap">
+            WILLOW{' '}
+            <span className="font-script tracking-normal text-[0.85em] text-primary">&amp;</span>
+            {' '}WREN
+          </span>
+          <span className="font-serif text-[9px] tracking-[0.42em] text-muted-foreground">
+            BESPOKE WEDDING STATIONERY
+          </span>
         </Link>
 
         {/* Nav — centred */}
