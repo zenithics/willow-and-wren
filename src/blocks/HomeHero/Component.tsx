@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import type { HomeHeroBlock as HomeHeroBlockProps } from '@/payload-types'
-import { ImagePlaceholder, LeafDivider, Sprig } from '@/components/Botanical'
+import { ImagePlaceholder, Sprig } from '@/components/Botanical'
 
 /**
  * Only --background/--foreground/--primary/--secondary/--accent are kept
@@ -79,7 +79,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   if (style === 'fullwidth') {
     return (
-      <section className={`relative min-h-[78vh] flex flex-col items-center justify-end text-center px-6 pb-16 md:pb-20 ${t.wrapper}`}>
+      <section className={`relative min-h-[78vh] flex flex-col items-center justify-end text-center px-6 pb-[88px] ${t.wrapper}`}>
         {hasImage ? (
           <>
             <img
@@ -94,23 +94,22 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
           <ImagePlaceholder />
         )}
         {botanicalOverlay && <BotanicalOverlay />}
-        <div className="relative z-10 max-w-5xl px-4">
+        <div className="relative z-10 max-w-6xl px-4">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${t.badge}`}>
               {badge}
             </span>
           )}
-          <h1 className="font-serif font-normal uppercase tracking-[0.12em] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-3 text-foreground lg:whitespace-nowrap">
+          <h1 className="font-serif font-normal uppercase tracking-[0.18em] text-[36px] md:text-[58px] leading-tight m-0 text-foreground">
             {headline}
           </h1>
           {subheadline && (
-            <p className="font-serif italic text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto text-primary">
+            <p className="font-script text-[24px] md:text-[32px] leading-relaxed max-w-lg mx-auto text-[#8D9581] mt-[18px] mb-[34px]">
               {subheadline}
             </p>
           )}
           <HeroLinks links={links} variant="light" align="center" />
         </div>
-        <LeafDivider className="relative z-10 mt-10 text-primary/60" />
       </section>
     )
   }
