@@ -139,14 +139,14 @@
   --card-foreground: oklch(96% 0.006 261deg);
   --popover: oklch(13% 0.024 264deg);
   --popover-foreground: oklch(96% 0.006 261deg);
-  --primary: oklch(65% 0.215 261deg); /* blue-400 */
-  --primary-foreground: oklch(13% 0.024 264deg);
+  --primary: oklch(74.3% 0.033 127.3deg); /* Sage */
+  --primary-foreground: oklch(100% 0 0);
   --secondary: oklch(21% 0.024 264deg);
   --secondary-foreground: oklch(90% 0.01 261deg);
   --muted: oklch(21% 0.024 264deg);
   --muted-foreground: oklch(65% 0.028 260deg);
-  --accent: oklch(65% 0.215 261deg);
-  --accent-foreground: oklch(13% 0.024 264deg);
+  --accent: oklch(74.4% 0.088 84.6deg); /* Antique Gold */
+  --accent-foreground: oklch(100% 0 0);
   --destructive: oklch(39.6% 0.141 25.723deg);
   --destructive-foreground: oklch(63.7% 0.237 25.331deg);
   --border: oklch(25% 0.024 264deg);
@@ -171,7 +171,7 @@
   --brand-deep-plum: oklch(13% 0.024 264deg);
   --brand-blush: oklch(21% 0.024 264deg);
   --border-subtle: oklch(25% 0.024 264deg);
-  --accent: oklch(65% 0.215 261deg);
+  --accent: oklch(74.4% 0.088 84.6deg); /* Antique Gold */
 }
 
 @theme inline {

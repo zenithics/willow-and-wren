@@ -72,7 +72,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
             ? 'bg-black/20 backdrop-blur-md border-white/15'
             : 'bg-background border-border shadow-sm'
         }`}
-        {...(theme ? { 'data-theme': theme } : {})}
       >
         <div className="flex items-center justify-between h-16 px-6">
 
