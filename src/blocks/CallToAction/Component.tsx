@@ -7,7 +7,7 @@ import { CMSLink } from '@/components/Link'
 
 export const CallToActionBlock: React.FC<CTABlockProps> = ({
   style = 'card',
-  buttonBackground = 'sage',
+  buttonBackground = 'gold',
   links,
   richText,
 }) => {
@@ -15,7 +15,9 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
     const buttonClass =
       buttonBackground === 'charcoal'
         ? 'bg-foreground text-background hover:bg-foreground/90'
-        : 'bg-primary text-background hover:bg-primary/90'
+        : buttonBackground === 'sage'
+          ? 'bg-primary text-background hover:bg-primary/90'
+          : 'bg-accent text-white hover:bg-accent/90'
 
     return (
       <section className="py-20 md:py-28 text-center bg-secondary">

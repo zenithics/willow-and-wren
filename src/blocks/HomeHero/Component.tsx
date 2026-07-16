@@ -1,10 +1,7 @@
-'use client'
-
-import React, { useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import type { HomeHeroBlock as HomeHeroBlockProps } from '@/payload-types'
-import { ImagePlaceholder, Sprig } from '@/components/Botanical'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
+import { ImagePlaceholder, LeafDivider, Sprig } from '@/components/Botanical'
 
 /**
  * Only --background/--foreground/--primary/--secondary/--accent are kept
@@ -50,26 +47,10 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
   const t = THEME_CLASSES[theme as keyof typeof THEME_CLASSES] || THEME_CLASSES.light
   const hasImage = backgroundImage && typeof backgroundImage === 'object'
 
-  // Only 'fullwidth'/'centred' actually span edge-to-edge behind the sticky
-  // header — 'split' only fills half the width, so the header should stay
-  // on its normal solid background there. Tell the header to go transparent
-  // with light text only when there's a real image to float it over.
-  const wantsDarkHeader = Boolean(hasImage) && (style === 'fullwidth' || style === 'centred')
-  const { setHeaderTheme } = useHeaderTheme()
-  useEffect(() => {
-    setHeaderTheme(wantsDarkHeader ? 'dark' : 'light')
-  }, [wantsDarkHeader, setHeaderTheme])
-
-  // The sticky header still occupies its own flow height even when
-  // transparent (pt-4 floating gap + h-16 pill = 5rem/80px) — without this
-  // negative margin the hero gets pushed down below it instead of the
-  // header floating over it.
-  const overlapHeaderClass = wantsDarkHeader ? '-mt-20' : ''
-
   if (style === 'centred') {
     return (
       <section
-        className={`relative min-h-[75vh] flex items-center justify-center text-center px-6 py-24 ${overlapHeaderClass} ${t.wrapper}`}
+        className={`relative min-h-[75vh] flex items-center justify-center text-center px-6 py-24 ${t.wrapper}`}
         style={hasImage ? { backgroundImage: `url(${(backgroundImage as any).url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
       >
         {hasImage && <div className="absolute inset-0 bg-black/50" />}
@@ -86,11 +67,11 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
             {headline}
           </h1>
           {subheadline && (
-            <p className={`font-serif text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed ${hasImage ? 'text-white/80' : t.sub}`}>
+            <p className={`font-serif italic text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed ${hasImage ? 'text-white/80' : t.sub}`}>
               {subheadline}
             </p>
           )}
-          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} />
+          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} align="center" />
         </div>
       </section>
     )
@@ -98,21 +79,22 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   if (style === 'fullwidth') {
     return (
-      <section className={`relative min-h-screen flex items-center justify-center text-center px-6 py-24 ${overlapHeaderClass} ${t.wrapper}`}>
-        {hasImage && (
+      <section className={`relative min-h-[80vh] flex flex-col items-center justify-center text-center px-6 py-20 ${t.wrapper}`}>
+        {hasImage ? (
           <>
             <img
               src={(backgroundImage as any).url}
               alt={(backgroundImage as any).alt || headline}
               className="absolute inset-0 w-full h-full object-cover"
             />
-            {/* Flat wash keeps the centred copy readable anywhere on the image; the soft vignette adds a little extra depth top and bottom. */}
-            <div className="absolute inset-0 bg-black/35" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/50" />
+            {/* Bottom-weighted vignette keeps the copy legible without flattening the photo. */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" />
           </>
+        ) : (
+          <ImagePlaceholder />
         )}
         {botanicalOverlay && <BotanicalOverlay />}
-        <div className="relative z-10 max-w-3xl mx-auto">
+        <div className="relative z-10 max-w-2xl">
           {badge && (
             <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${
               hasImage ? 'bg-white/20 text-white border border-white/30' : t.badge
@@ -120,16 +102,17 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
               {badge}
             </span>
           )}
-          <h1 className={`font-serif italic text-6xl md:text-7xl lg:text-8xl leading-[1.05] mb-5 ${hasImage ? 'text-white' : t.headline}`}>
+          <h1 className={`font-serif uppercase tracking-[0.08em] text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 ${hasImage ? 'text-white' : t.headline}`}>
             {headline}
           </h1>
           {subheadline && (
-            <p className={`font-serif text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto ${hasImage ? 'text-white/85' : t.sub}`}>
+            <p className={`font-serif italic text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto ${hasImage ? 'text-white/90' : t.sub}`}>
               {subheadline}
             </p>
           )}
           <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} align="center" />
         </div>
+        <LeafDivider className={`relative z-10 mt-10 ${hasImage ? 'text-white/70' : 'text-primary/60'}`} />
       </section>
     )
   }
@@ -149,7 +132,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
           {headline}
         </h1>
         {subheadline && (
-          <p className={`font-serif text-base md:text-lg mb-8 leading-relaxed max-w-md ${t.sub}`}>
+          <p className={`font-serif italic text-base md:text-lg mb-8 leading-relaxed max-w-md ${t.sub}`}>
             {subheadline}
           </p>
         )}
@@ -193,8 +176,8 @@ function HeroLinks({
   if (!links || links.length === 0) return null
   const secondaryClass =
     variant === 'light'
-      ? 'border border-foreground/25 text-foreground hover:bg-foreground/5'
-      : 'border border-white/30 text-white hover:bg-white/10'
+      ? 'border border-foreground/25 text-foreground hover:border-accent hover:text-accent'
+      : 'border border-white/30 text-white hover:border-accent hover:text-accent'
 
   return (
     <div className={`flex flex-wrap gap-3 ${align === 'center' ? 'justify-center' : ''}`}>
@@ -208,9 +191,9 @@ function HeroLinks({
             key={i}
             href={href}
             {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className={`inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-bold transition-all ${
+            className={`inline-flex items-center justify-center px-7 py-3.5 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all ${
               isPrimary
-                ? 'bg-primary text-background hover:bg-primary/90 shadow-[0_4px_16px_rgba(166,176,154,0.45)]'
+                ? 'bg-accent text-white hover:bg-accent/90 shadow-[0_4px_16px_rgba(198,168,106,0.4)]'
                 : secondaryClass
             }`}
           >

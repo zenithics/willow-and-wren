@@ -89,47 +89,47 @@
 
 /* Willow & wREN CMS Template */
 :root {
-  /* ── Willow & Wren brand palette ── */
-  --background: oklch(96.8% 0.009 84.6deg); /* Warm Ivory #F7F4EE */
-  --foreground: oklch(40.1% 0.007 95.3deg); /* Charcoal #494844 */
-  --card: oklch(100% 0 0); /* white */
-  --card-foreground: oklch(40.1% 0.007 95.3deg); /* Charcoal */
-  --popover: oklch(100% 0 0);
-  --popover-foreground: oklch(40.1% 0.007 95.3deg);
-  --primary: oklch(74.3% 0.033 127.3deg); /* Soft Sage #A6B09A */
-  --primary-foreground: oklch(100% 0 0); /* white on sage */
-  --secondary: oklch(86.6% 0.015 80.7deg); /* Stone #D8D2C8 */
-  --secondary-foreground: oklch(40.1% 0.007 95.3deg);
-  --muted: oklch(92% 0.012 84deg); /* lighter stone */
-  --muted-foreground: oklch(55% 0.01 95deg); /* mid charcoal */
-  --accent: oklch(74.4% 0.088 84.6deg); /* Antique Gold #C6A86A */
-  --accent-foreground: oklch(100% 0 0);
+  /* ── Willow & Wren brand palette (exact hex per brand guide) ── */
+  --background: #F7F4EE; /* Warm Ivory */
+  --foreground: #494844; /* Charcoal */
+  --card: #FFFFFF;
+  --card-foreground: #494844; /* Charcoal */
+  --popover: #FFFFFF;
+  --popover-foreground: #494844;
+  --primary: #A6B09A; /* Soft Sage */
+  --primary-foreground: #FFFFFF; /* white on sage */
+  --secondary: #D8D2C8; /* Stone */
+  --secondary-foreground: #494844;
+  --muted: #EFEBE3; /* lighter stone wash */
+  --muted-foreground: #8A867D; /* mid charcoal */
+  --accent: #C6A86A; /* Antique Gold */
+  --accent-foreground: #FFFFFF;
   --destructive: oklch(57.7% 0.245 27.325deg);
   --destructive-foreground: oklch(100% 0 0);
-  --border: oklch(89% 0.012 84deg); /* subtle stone border */
-  --input: oklch(89% 0.012 84deg);
-  --ring: oklch(74.3% 0.033 127.3deg); /* Sage ring */
-  --chart-1: oklch(74.3% 0.033 127.3deg); /* Sage */
-  --chart-2: oklch(74.4% 0.088 84.6deg); /* Gold */
-  --chart-3: oklch(86.6% 0.015 80.7deg); /* Stone */
-  --chart-4: oklch(40.1% 0.007 95.3deg); /* Charcoal */
-  --chart-5: oklch(96.8% 0.009 84.6deg); /* Ivory */
+  --border: #E5E0D6; /* subtle stone border */
+  --input: #E5E0D6;
+  --ring: #A6B09A; /* Sage ring */
+  --chart-1: #A6B09A; /* Sage */
+  --chart-2: #C6A86A; /* Gold */
+  --chart-3: #D8D2C8; /* Stone */
+  --chart-4: #494844; /* Charcoal */
+  --chart-5: #F7F4EE; /* Ivory */
   --radius: 0.25rem;
-  --sidebar: oklch(96.8% 0.009 84.6deg);
-  --sidebar-foreground: oklch(40.1% 0.007 95.3deg);
-  --sidebar-primary: oklch(74.3% 0.033 127.3deg);
-  --sidebar-primary-foreground: oklch(100% 0 0);
-  --sidebar-accent: oklch(86.6% 0.015 80.7deg);
-  --sidebar-accent-foreground: oklch(40.1% 0.007 95.3deg);
-  --sidebar-border: oklch(89% 0.012 84deg);
-  --sidebar-ring: oklch(74.3% 0.033 127.3deg);
+  --sidebar: #F7F4EE;
+  --sidebar-foreground: #494844;
+  --sidebar-primary: #A6B09A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #D8D2C8;
+  --sidebar-accent-foreground: #494844;
+  --sidebar-border: #E5E0D6;
+  --sidebar-ring: #A6B09A;
   --success: oklch(78% 0.08 150deg);
   --warning: oklch(89% 0.1 75deg);
   --error: oklch(55% 0.2 25deg);
   /* Brand tokens */
-  --brand-deep-plum: oklch(40.1% 0.007 95.3deg); /* Charcoal (replaces plum) */
-  --brand-blush: oklch(96.8% 0.009 84.6deg); /* Ivory (replaces blush) */
-  --border-subtle: oklch(89% 0.012 84deg);
+  --brand-deep-plum: #494844; /* Charcoal (replaces plum) */
+  --brand-blush: #F7F4EE; /* Ivory (replaces blush) */
+  --border-subtle: #E5E0D6;
 }
 
 [data-theme='dark'] {
@@ -236,13 +236,13 @@ html[data-theme='light'] {
 
 /* SiteAppearance runtime overrides — CSS vars injected by ThemeProvider take precedence */
 :root {
-  --primary: var(--color-primary, oklch(74.3% 0.033 127.3deg)); /* Sage */
-  --secondary: var(--color-secondary, oklch(86.6% 0.015 80.7deg)); /* Stone */
-  --accent: var(--color-accent, oklch(74.4% 0.088 84.6deg)); /* Gold */
-  --background: var(--color-bg, oklch(96.8% 0.009 84.6deg)); /* Ivory */
-  --foreground: var(--color-text, oklch(40.1% 0.007 95.3deg)); /* Charcoal */
-  --brand-header-bg: var(--color-header-bg, oklch(100% 0 0));
-  --brand-footer-bg: var(--color-footer-bg, oklch(40.1% 0.007 95.3deg));
+  --primary: var(--color-primary, #A6B09A); /* Sage */
+  --secondary: var(--color-secondary, #D8D2C8); /* Stone */
+  --accent: var(--color-accent, #C6A86A); /* Gold */
+  --background: var(--color-bg, #F7F4EE); /* Ivory */
+  --foreground: var(--color-text, #494844); /* Charcoal */
+  --brand-header-bg: var(--color-header-bg, #FFFFFF);
+  --brand-footer-bg: var(--color-footer-bg, #494844);
   --font-sans: var(--font-body, var(--font-dm-sans), system-ui, sans-serif);
   --font-serif: var(--font-heading, var(--font-cormorant), Georgia, serif);
 }

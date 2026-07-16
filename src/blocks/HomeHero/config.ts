@@ -11,19 +11,18 @@ export const HomeHero: Block = {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'Willow & Wren',
+      defaultValue: 'Bespoke Wedding Stationery',
     },
     {
       name: 'subheadline',
       type: 'textarea',
-      defaultValue: 'Bespoke Wedding Stationery, Crafted with Love',
+      defaultValue: 'Where every detail tells your story',
     },
     linkGroup({
       overrides: {
         maxRows: 2,
         defaultValue: [
-          { link: { type: 'custom', url: '/shop', label: 'Shop Collections', appearance: 'default' } },
-          { link: { type: 'custom', url: '/contact', label: 'Get in Touch', appearance: 'outline' } },
+          { link: { type: 'custom', url: '/shop', label: 'Explore Collections', appearance: 'default' } },
         ],
       },
     }),

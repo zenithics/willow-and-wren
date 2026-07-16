@@ -30,6 +30,9 @@ import { CollectionsShowcaseBlock } from '@/blocks/CollectionsShowcase/Component
 import { CategoryStripBlock } from '@/blocks/CategoryStrip/Component'
 import { BrandStoryBlock } from '@/blocks/BrandStory/Component'
 import { FeaturedProductsBlock } from '@/blocks/FeaturedProducts/Component'
+import { IntroStatementBlock } from '@/blocks/IntroStatement/Component'
+import { FinishingTouchesBlock } from '@/blocks/FinishingTouches/Component'
+import { InstagramFeedBlock } from '@/blocks/InstagramFeed/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -60,6 +63,9 @@ const blockComponents = {
   categoryStrip: CategoryStripBlock,
   brandStory: BrandStoryBlock,
   featuredProducts: FeaturedProductsBlock,
+  introStatement: IntroStatementBlock,
+  finishingTouches: FinishingTouchesBlock,
+  instagramFeed: InstagramFeedBlock,
 }
 
 /**

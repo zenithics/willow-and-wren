@@ -25,13 +25,14 @@ export const CallToAction: Block = {
     {
       name: 'buttonBackground',
       type: 'select',
-      defaultValue: 'sage',
+      defaultValue: 'gold',
       label: 'Button Background',
       admin: {
         condition: (_, siblingData) => siblingData?.style === 'band',
         description: 'Background colour of the CTA button in the full-width band style. Text is always Ivory.',
       },
       options: [
+        { label: 'Antique Gold', value: 'gold' },
         { label: 'Sage', value: 'sage' },
         { label: 'Charcoal', value: 'charcoal' },
       ],

@@ -31,6 +31,9 @@ import { CollectionsShowcase } from '../../blocks/CollectionsShowcase/config'
 import { CategoryStrip } from '../../blocks/CategoryStrip/config'
 import { BrandStory } from '../../blocks/BrandStory/config'
 import { FeaturedProducts } from '../../blocks/FeaturedProducts/config'
+import { IntroStatement } from '../../blocks/IntroStatement/config'
+import { FinishingTouches } from '../../blocks/FinishingTouches/config'
+import { InstagramFeed } from '../../blocks/InstagramFeed/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -147,6 +150,9 @@ export const Pages: CollectionConfig = {
                 CategoryStrip,
                 BrandStory,
                 FeaturedProducts,
+                IntroStatement,
+                FinishingTouches,
+                InstagramFeed,
               ],
               required: true,
               admin: {

@@ -15,7 +15,12 @@ export const BrandStory: Block = {
     {
       name: 'heading',
       type: 'text',
-      defaultValue: 'Our Story',
+      defaultValue: 'Bespoke Stationery',
+    },
+    {
+      name: 'subheading',
+      type: 'text',
+      defaultValue: 'Designed around your story',
     },
     {
       name: 'content',

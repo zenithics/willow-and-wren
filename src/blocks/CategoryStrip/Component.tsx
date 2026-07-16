@@ -6,7 +6,7 @@ import configPromise from '@payload-config'
 import type { CategoryStripBlock as CategoryStripBlockProps } from '@/payload-types'
 
 import { Media } from '@/components/Media'
-import { ImagePlaceholder, LeafDivider } from '@/components/Botanical'
+import { LeafDivider } from '@/components/Botanical'
 
 export const CategoryStripBlock: React.FC<CategoryStripBlockProps> = async ({
   heading,
@@ -42,33 +42,37 @@ export const CategoryStripBlock: React.FC<CategoryStripBlockProps> = async ({
   if (!orderedCategories.length) return null
 
   return (
-    <section className="py-20 md:py-28 bg-background">
+    <section className="py-16 md:py-20 bg-secondary">
       <div className="container">
         {heading && (
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-serif tracking-tight mb-4">{heading}</h2>
+            <h2 className="text-2xl md:text-3xl font-serif uppercase tracking-[0.08em] mb-4">
+              {heading}
+            </h2>
             <LeafDivider />
           </div>
         )}
 
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-10 md:gap-x-12">
+        <div className="flex flex-wrap justify-center gap-x-10 gap-y-8">
           {orderedCategories.map((category) => (
             <Link
               key={category.id}
               href={`/shop/${category.slug}`}
-              className="group flex flex-col items-center gap-3 w-24 md:w-28 text-center"
+              className="group flex flex-col items-center gap-3 w-20 md:w-24 text-center"
             >
-              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border border-border transition-colors group-hover:border-primary">
+              <div className="relative w-16 h-16 md:w-18 md:h-18 rounded-full overflow-hidden border border-foreground/15 bg-white flex items-center justify-center transition-colors group-hover:border-accent">
                 {category.image && typeof category.image === 'object' ? (
                   <Media
                     resource={category.image}
                     imgClassName="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                 ) : (
-                  <ImagePlaceholder rounded />
+                  <span className="font-serif text-xl text-primary group-hover:text-accent transition-colors">
+                    {category.title?.charAt(0)?.toUpperCase()}
+                  </span>
                 )}
               </div>
-              <span className="text-sm font-medium tracking-wide font-serif transition-colors group-hover:text-primary">
+              <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-foreground/70 transition-colors group-hover:text-accent">
                 {category.title}
               </span>
             </Link>
