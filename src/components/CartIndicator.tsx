@@ -15,7 +15,7 @@ export const CartIndicator: React.FC<{ className?: string }> = ({ className }) =
       href="/cart"
       aria-label={`Cart, ${itemCount} item${itemCount === 1 ? '' : 's'}`}
       className={cn(
-        'relative inline-flex items-center justify-center p-2 -mr-2 text-foreground/80 hover:text-primary transition-colors',
+        'relative inline-flex items-center justify-center p-2 -mr-2 text-foreground/80 hover:text-accent transition-colors',
         className,
       )}
     >

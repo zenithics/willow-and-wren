@@ -74,10 +74,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
         className={`pointer-events-auto max-w-[1280px] mx-auto border transition-all duration-200 ${
           mobileOpen ? 'rounded-3xl' : 'rounded-full'
         } ${
-          scrolled
-            ? 'bg-white/95 backdrop-blur-sm shadow-sm border-border'
-            : isTransparent
-              ? 'bg-black/20 backdrop-blur-md border-white/15'
+          isTransparent
+            ? 'bg-black/20 backdrop-blur-md border-white/15'
+            : theme === 'dark'
+              // Scrolled past a genuinely dark hero (e.g. HighImpactHero) — solidify for legibility.
+              ? 'bg-white/95 backdrop-blur-sm shadow-sm border-border'
+              // Normal pages (including the homepage) — same solid look from top to bottom, no scroll-based change.
               : 'bg-background border-border shadow-sm'
         }`}
         {...(theme ? { 'data-theme': theme } : {})}
@@ -106,7 +108,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
               />
             ) : (
               <span
-                className={`font-sans text-xl font-semibold tracking-tight transition-colors hover:text-primary ${
+                className={`font-sans text-xl font-semibold tracking-tight transition-colors hover:text-accent ${
                   isTransparent ? 'text-white' : 'text-foreground'
                 }`}
               >
@@ -124,7 +126,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
                   href={href}
                   target={newTab ? '_blank' : undefined}
                   rel={newTab ? 'noopener noreferrer' : undefined}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                  className={`text-sm font-medium transition-colors hover:text-accent ${
                     pathname === href || (href !== '/' && pathname.startsWith(href.split('?')[0]))
                       ? 'text-primary'
                       : isTransparent
@@ -137,7 +139,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
               ))}
             </nav>
 
-            <CartIndicator className={isTransparent ? 'text-white/90 hover:text-white' : undefined} />
+            <CartIndicator className={isTransparent ? 'text-white/90 hover:text-accent' : undefined} />
 
             {/* Mobile hamburger */}
             <button
@@ -161,7 +163,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
                 href={href}
                 target={newTab ? '_blank' : undefined}
                 rel={newTab ? 'noopener noreferrer' : undefined}
-                className="py-3 text-sm font-medium border-b last:border-0 text-foreground hover:text-primary transition-colors"
+                className="py-3 text-sm font-medium border-b last:border-0 text-foreground hover:text-accent transition-colors"
               >
                 {label}
               </Link>
