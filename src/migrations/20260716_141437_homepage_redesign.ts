@@ -2,10 +2,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   ALTER TYPE "public"."enum_pages_blocks_cta_button_background" ADD VALUE 'gold' BEFORE 'sage';
-  ALTER TYPE "public"."enum__pages_v_blocks_cta_button_background" ADD VALUE 'gold' BEFORE 'sage';
-  ALTER TYPE "public"."enum_page_templates_blocks_cta_button_background" ADD VALUE 'gold' BEFORE 'sage';
-  CREATE TABLE "pages_blocks_intro_statement" (
+   CREATE TABLE "pages_blocks_intro_statement" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"_path" text NOT NULL,
