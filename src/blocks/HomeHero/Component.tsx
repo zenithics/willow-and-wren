@@ -60,10 +60,15 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
     setHeaderTheme(wantsDarkHeader ? 'dark' : 'light')
   }, [wantsDarkHeader, setHeaderTheme])
 
+  // The sticky header still occupies its own 64px (h-16) of normal flow
+  // height even when transparent — without this negative margin the hero
+  // gets pushed down below it instead of the header floating over it.
+  const overlapHeaderClass = wantsDarkHeader ? '-mt-16' : ''
+
   if (style === 'centred') {
     return (
       <section
-        className={`relative min-h-[75vh] flex items-center justify-center text-center px-6 py-24 ${t.wrapper}`}
+        className={`relative min-h-[75vh] flex items-center justify-center text-center px-6 py-24 ${overlapHeaderClass} ${t.wrapper}`}
         style={hasImage ? { backgroundImage: `url(${(backgroundImage as any).url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
       >
         {hasImage && <div className="absolute inset-0 bg-black/50" />}
@@ -92,7 +97,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   if (style === 'fullwidth') {
     return (
-      <section className={`relative min-h-screen flex items-end pb-20 md:pb-24 px-6 md:px-16 ${t.wrapper}`}>
+      <section className={`relative min-h-screen flex items-end pb-20 md:pb-24 px-6 md:px-16 ${overlapHeaderClass} ${t.wrapper}`}>
         {hasImage && (
           <>
             <img
