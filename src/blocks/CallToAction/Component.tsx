@@ -15,8 +15,8 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
   if (style === 'band') {
     const buttonClass =
       buttonBackground === 'charcoal'
-        ? 'bg-[var(--brand-deep-plum)] text-[var(--brand-blush)] hover:bg-[var(--brand-deep-plum)]/90'
-        : 'bg-primary text-[var(--brand-blush)] hover:bg-primary/90'
+        ? 'bg-foreground text-background hover:bg-foreground/90'
+        : 'bg-primary text-background hover:bg-primary/90'
 
     return (
       <section className="relative overflow-hidden py-20 md:py-24 text-center bg-secondary">

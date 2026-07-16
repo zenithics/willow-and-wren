@@ -69,7 +69,7 @@ export function ImagePlaceholder({
 }) {
   return (
     <div
-      className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-muted via-(--brand-blush) to-secondary ${
+      className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary/50 via-background to-accent/15 ${
         rounded ? 'rounded-full' : ''
       } ${className}`}
     >

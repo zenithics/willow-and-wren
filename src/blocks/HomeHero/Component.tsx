@@ -3,23 +3,30 @@ import Link from 'next/link'
 import type { HomeHeroBlock as HomeHeroBlockProps } from '@/payload-types'
 import { ImagePlaceholder, Sprig } from '@/components/Botanical'
 
+/**
+ * Only --background/--foreground/--primary/--secondary/--accent are kept
+ * theme-stable (see the "SiteAppearance runtime overrides" block in
+ * globals.css) — they always resolve to the light brand palette even when a
+ * visitor's OS prefers dark mode. Tokens like --muted and --brand-blush are
+ * NOT shielded and flip to cool dark values in dark mode, so avoid them here.
+ */
 const THEME_CLASSES = {
   dark: {
-    wrapper: 'bg-[var(--brand-deep-plum)] text-white',
-    badge: 'bg-white/10 text-[var(--accent)] border border-white/20',
+    wrapper: 'bg-foreground text-white',
+    badge: 'bg-white/10 text-accent border border-white/20',
     headline: 'text-white',
     sub: 'text-white/65',
     links: 'dark' as const,
   },
   light: {
     wrapper: 'bg-background text-foreground',
-    badge: 'bg-(--brand-blush) text-primary border border-primary/20',
+    badge: 'bg-background text-primary border border-primary/20',
     headline: 'text-foreground',
     sub: 'text-muted-foreground',
     links: 'light' as const,
   },
   pink: {
-    wrapper: 'bg-gradient-to-br from-(--brand-blush) via-secondary to-muted text-foreground',
+    wrapper: 'bg-gradient-to-br from-background via-secondary to-accent/10 text-foreground',
     badge: 'bg-white/70 text-primary border border-primary/20',
     headline: 'text-foreground',
     sub: 'text-muted-foreground',
@@ -123,7 +130,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
       </div>
 
       {/* Image side */}
-      <div className="relative min-h-[50vh] lg:min-h-0 order-1 lg:order-2 overflow-hidden bg-muted">
+      <div className="relative min-h-[50vh] lg:min-h-0 order-1 lg:order-2 overflow-hidden bg-secondary">
         {hasImage ? (
           <img
             src={(backgroundImage as any).url}
@@ -174,7 +181,7 @@ function HeroLinks({
             {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             className={`inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-bold transition-all ${
               isPrimary
-                ? 'bg-primary text-(--brand-blush) hover:bg-primary/90 shadow-[0_4px_16px_rgba(166,176,154,0.45)]'
+                ? 'bg-primary text-background hover:bg-primary/90 shadow-[0_4px_16px_rgba(166,176,154,0.45)]'
                 : secondaryClass
             }`}
           >
