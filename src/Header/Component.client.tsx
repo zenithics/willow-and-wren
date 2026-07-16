@@ -33,11 +33,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, logo, logoDark
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
-  // The homepage hero is a full-bleed image with a transparent header
-  // floating on top of it — everywhere else the header keeps its normal
-  // solid background from the very top of the page.
-  const isHomepage = pathname === '/'
-  const isTransparent = isHomepage && !scrolled && !mobileOpen
+  // Full-bleed dark heroes (e.g. HighImpactHero, or HomeHero with a
+  // background image) call setHeaderTheme('dark') while they're showing —
+  // that's our cue to float a transparent, light-text header on top of them.
+  // Everywhere else the header keeps its normal solid background.
+  const isTransparent = theme === 'dark' && !scrolled && !mobileOpen
 
   useEffect(() => {
     setHeaderTheme(null)

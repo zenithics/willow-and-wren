@@ -1,7 +1,10 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import type { HomeHeroBlock as HomeHeroBlockProps } from '@/payload-types'
 import { ImagePlaceholder, Sprig } from '@/components/Botanical'
+import { useHeaderTheme } from '@/providers/HeaderTheme'
 
 /**
  * Only --background/--foreground/--primary/--secondary/--accent are kept
@@ -46,6 +49,16 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 }) => {
   const t = THEME_CLASSES[theme as keyof typeof THEME_CLASSES] || THEME_CLASSES.light
   const hasImage = backgroundImage && typeof backgroundImage === 'object'
+
+  // Only 'fullwidth'/'centred' actually span edge-to-edge behind the sticky
+  // header — 'split' only fills half the width, so the header should stay
+  // on its normal solid background there. Tell the header to go transparent
+  // with light text only when there's a real image to float it over.
+  const wantsDarkHeader = Boolean(hasImage) && (style === 'fullwidth' || style === 'centred')
+  const { setHeaderTheme } = useHeaderTheme()
+  useEffect(() => {
+    setHeaderTheme(wantsDarkHeader ? 'dark' : 'light')
+  }, [wantsDarkHeader, setHeaderTheme])
 
   if (style === 'centred') {
     return (
