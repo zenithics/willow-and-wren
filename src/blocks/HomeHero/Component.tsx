@@ -79,7 +79,7 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
 
   if (style === 'fullwidth') {
     return (
-      <section className={`relative min-h-[80vh] flex flex-col items-center justify-center text-center px-6 py-20 ${t.wrapper}`}>
+      <section className={`relative min-h-[78vh] flex flex-col items-center justify-end text-center px-6 pb-16 md:pb-20 ${t.wrapper}`}>
         {hasImage ? (
           <>
             <img
@@ -87,8 +87,8 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
               alt={(backgroundImage as any).alt || headline}
               className="absolute inset-0 w-full h-full object-cover"
             />
-            {/* Bottom-weighted vignette keeps the copy legible without flattening the photo. */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" />
+            {/* Fades the photo into the page's own Ivory background rather than darkening it — copy stays dark/on-brand instead of white-on-image. */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/70 to-background" />
           </>
         ) : (
           <ImagePlaceholder />
@@ -96,23 +96,21 @@ export const HomeHeroBlock: React.FC<HomeHeroBlockProps & { disableInnerContaine
         {botanicalOverlay && <BotanicalOverlay />}
         <div className="relative z-10 max-w-2xl">
           {badge && (
-            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${
-              hasImage ? 'bg-white/20 text-white border border-white/30' : t.badge
-            }`}>
+            <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 ${t.badge}`}>
               {badge}
             </span>
           )}
-          <h1 className={`font-serif uppercase tracking-[0.08em] text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 ${hasImage ? 'text-white' : t.headline}`}>
+          <h1 className="font-serif uppercase tracking-[0.08em] text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 text-foreground">
             {headline}
           </h1>
           {subheadline && (
-            <p className={`font-serif italic text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto ${hasImage ? 'text-white/90' : t.sub}`}>
+            <p className="font-serif italic text-lg md:text-xl mb-8 leading-relaxed max-w-lg mx-auto text-primary">
               {subheadline}
             </p>
           )}
-          <HeroLinks links={links} variant={hasImage ? 'dark' : t.links} align="center" />
+          <HeroLinks links={links} variant="light" align="center" />
         </div>
-        <LeafDivider className={`relative z-10 mt-10 ${hasImage ? 'text-white/70' : 'text-primary/60'}`} />
+        <LeafDivider className="relative z-10 mt-10 text-primary/60" />
       </section>
     )
   }
@@ -191,7 +189,7 @@ function HeroLinks({
             key={i}
             href={href}
             {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className={`inline-flex items-center justify-center px-7 py-3.5 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all ${
+            className={`inline-flex items-center justify-center px-8 py-3.5 rounded-sm text-xs font-semibold tracking-[0.12em] uppercase transition-all ${
               isPrimary
                 ? 'bg-accent text-white hover:bg-accent/90 shadow-[0_4px_16px_rgba(198,168,106,0.4)]'
                 : secondaryClass
